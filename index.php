@@ -108,10 +108,11 @@ include 'header.php';
                 <div class="modal-body">
                     <div class="container-fluid">
                             <form action="" id="new-author-single-frm">
+                                <input type="hidden" name="userID">
                                 <!-- email -->
                                 <div class="form-group">
-                                    <label for="email_" class="control-label">Email</label>
-                                    <input type="text" class="form-control" name="email_" id="email_" required>
+                                    <label for="email" class="control-label">Email</label>
+                                    <input type="text" class="form-control" name="email" id="email" required>
                                 </div>
                                 <!-- lastname -->
                                 <div class="form-group">
