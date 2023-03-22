@@ -139,7 +139,7 @@ $(function() {
                 text: "Add Record",
                 className: "btn btn-primary fw-bold py-0",
                 action: function(e, dt, node, config) {
-                    $('#add_modal').modal('show')
+                    $('#add_modal_single').modal('show')
                 }
             },
             ],
@@ -155,8 +155,8 @@ $(function() {
     //Saving new Data (Single)
     $('#new-sauthor-frm').submit(function(e) {
         e.preventDefault()
-        $('#add_modal_sauthor button').attr('disabled', true)
-        $('#add_modal_sauthor button[form="new-sauthor-frm"]').text("saving ...")
+        $('#add_modal_single button').attr('disabled', true)
+        $('#add_modal_single button[form="new-author-single-frm"]').text("saving ...")
         $.ajax({  
             url:"./users_table/add_users.php",  
             method:"POST",
@@ -176,7 +176,7 @@ $(function() {
                         _el.hide()
                         _el.addClass('alert alert-primary alert_msg')
                         _el.text("Data successfully added");
-                        $('#new-sauthor-frm').get(0).reset()
+                        $('#new-author-single-frm').get(0).reset()
                         $('.modal').modal('hide')
                         $('#msg').append(_el)
                         _el.show('slow')
@@ -190,7 +190,7 @@ $(function() {
                         _el.hide()
                         _el.addClass('alert alert-danger alert_msg form-group')
                         _el.text(res.msg);
-                        $('#new-sauthor-frm').append(_el)
+                        $('#new-author-single-frm').append(_el)
                         _el.show('slow')
                     } else {
                         alert("An error occured. Please check that the file selected isn't uploaded already.\nNo new record(s) found.");

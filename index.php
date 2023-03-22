@@ -107,7 +107,7 @@ include 'header.php';
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                            <form action="" id="new-sauthor-frm">
+                            <form action="" id="new-author-single-frm">
                                 <!-- email -->
                                 <div class="form-group">
                                     <label for="email_" class="control-label">Email</label>
@@ -127,7 +127,7 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-sauthor-frm">Import</button>
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-author-single-frm">Import</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
