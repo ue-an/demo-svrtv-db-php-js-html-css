@@ -1,4 +1,4 @@
-<div class="row" id="row-feastphtable">
+<div class="row scrolltable" id="row-feastphtable">
     <!-- <div class="row"> -->
     <!-- <div class="col-lg-6">
         <table class="table table-light table-hover table-bordered table-striped" id="feastcon-tbl-transactions">

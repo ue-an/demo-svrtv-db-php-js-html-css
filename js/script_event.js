@@ -162,41 +162,24 @@ $('#new-event-frm').submit(function(e) {
                 alert("An error occured. Please check the source code and try again")
             }, 
             success: function(resp) {
-                // let res = $.parseJSON(resp);
-                // console.log(res);
-                console.log(resp);
-                // if (!!res.status) {
-                //     if (res.status == 'success') {
-                //         var _el = $('<div>')
-                //         _el.hide()
-                //         _el.addClass('alert alert-primary alert_msg')
-                //         _el.text("Data successfully imported");
-                //         $('#new-event-frm').get(0).reset()
-                //         $('.modal').modal('hide')
-                //         $('#msg').append(_el)
-                //         _el.show('slow')
-                //         draw_data();
-                //         setTimeout(() => {
-                //             _el.hide('slow')
-                //                 .remove()
-                //         }, 2500)
-                //     } else if (res.status == 'failed' && !!res.msg) {
-                //         var _el = $('<div>')
-                //         _el.hide()
-                //         _el.addClass('alert alert-danger alert_msg form-group')
-                //         _el.text(res.msg);
-                //         $('#new-event-frm').append(_el)
-                //         _el.show('slow')
-                //     } else {
-                //         alert("An error occured. Please check that the file selected isn't uploaded already.\nNo new record(s) found.");
-                //         $('#add_modal_event button[form="new-event-frm"]').attr('disabled', false);
-                //         $('#add_modal_event button').attr('disabled', true);
-                //         $('#add_modal_event #file-event').val('');
-                //     }
-                // } else {
-                //     alert("An error occurred. Please check the source code and try again")
-                // }
-  
+                const resp_arr = resp.split("}");
+                if (resp_arr.some(res => res.status === 'failed')) {
+                    alert("add message here if found some 'failed' result");
+                } else {
+                    var _el = $('<div>')
+                            _el.hide()
+                            _el.addClass('alert alert-primary alert_msg')
+                            _el.text("Data successfully imported");
+                            $('#new-event-frm').get(0).reset()
+                            $('.modal').modal('hide')
+                            $('#msg').append(_el)
+                            _el.show('slow')
+                            draw_data();
+                            setTimeout(() => {
+                                _el.hide('slow')
+                                    .remove()
+                            }, 2500)
+                }
                 $('#add_modal_event button').attr('disabled', false)
                 $('#add_modal_event button[form="new-event-frm"]').text("Import")
                 $('#add_modal_event #file-event').val('');

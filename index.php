@@ -146,7 +146,6 @@ include 'header.php';
                 <div class="modal-body">
                     <div class="container-fluid">
                         <form action="" id="edit-author-frm">
-                            <input type="hidden" name="userID">
                             <!-- email -->
                             <div class="form-group">
                                 <label class="control-label">Email</label>
@@ -263,9 +262,6 @@ include 'header.php';
                                     <label for="file" class="control-label">Upload Excel File</label>
                                     <input type="file" name="file-event" id="file-event" class="form-control" required>
                                 </div>
-                                <!-- <div class="form-group" style="margin-top: 1rem;">
-                                    <button button type="submit" name="Import" id="submit" class="btn btn-success" value="upload" data-loading-text="Loading...">Upload</button>
-                                </div> -->
                             </form>
                     </div>
                 </div>
@@ -385,6 +381,71 @@ include 'header.php';
                             <div class="form-group">
                                 <label class="control-label">Category</label>
                                 <input type="text" class="form-control rounded-0" id="category" name="category" required>
+                            </div>
+                            <!-- email -->
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input type="text" class="form-control rounded-0" id="email" name="email" required>
+                            </div>
+                            <!-- last name -->
+                            <div class="form-group">
+                                <label class="control-label">Last Name</label>
+                                <input type="text" class="form-control rounded-0" id="lastname" name="lastname" required>
+                            </div>
+                            <!-- first name -->
+                            <div class="form-group">
+                                <label class="control-label">First Name</label>
+                                <input type="text" class="form-control rounded-0" id="firstname" name="firstname" required>
+                            </div>
+                            <!-- mobile number -->
+                            <div class="form-group">
+                                <label class="control-label">Mobile Number</label>
+                                <input type="text" class="form-control rounded-0" id="mobile" name="mobile" required>
+                            </div>
+                            <!-- main email (deliverable) -->
+                            <div class="form-group">
+                                <label class="control-label">Deliverable</label>
+                                <!-- <input type="text" class="form-control rounded-0" id="isMain" name="isMain" required> -->
+                                <br>
+                                <select name="isMain" id="isMain">
+                                    <option value="TRUE">TRUE</option>
+                                    <option value="FALSE">FALSE</option>
+                                </select>
+                            </div>
+                            <!-- feast attendee -->
+                            <div class="form-group">
+                                <label class="control-label">Feast Attendee</label>
+                                <!-- <input type="text" class="form-control rounded-0" id="isMain" name="isMain" required> -->
+                                <br>
+                                <select name="isFeastAttendee" id="isFeastAttendee">
+                                    <option value="TRUE">TRUE</option>
+                                    <option value="FALSE">FALSE</option>
+                                </select>
+                            </div>
+                            <!-- feast name -->
+                            <div class="form-group">
+                                <label class="control-label">Feast Name</label>
+                                <input type="text" class="form-control rounded-0" id="feastName" name="feastName" required>
+                            </div>
+                            <!-- district -->
+                            <div class="form-group">
+                                <label class="control-label">District</label>
+                                <input type="text" class="form-control rounded-0" id="district" name="district" required>
+                            </div>
+                            <!-- address -->
+                            <div class="form-group">
+                                <label class="control-label">Adress</label>
+                                <input type="text" class="form-control rounded-0" id="address" name="address" required>
+                            </div>
+                            <!-- city -->
+                            <div class="form-group">
+                                <label class="control-label">City</label>
+                                <input type="text" class="form-control rounded-0" id="city" name="city" required>
+                            </div>
+                            <!-- country -->
+                            <div class="form-group">
+                                <label class="control-label">Country</label>
+                                <input type="text" class="form-control rounded-0" id="country" name="country" required>
                             </div>
                         </form>
                     </div>

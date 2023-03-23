@@ -78,6 +78,29 @@ $(function() {
                         }
                     })
                 })
+                //try to access the users
+                $('.edit_data_anawim').click(function() {
+                    $.ajax({
+                        url: './users_table/get_single.php',
+                        data: { userID: $(this).attr('data-id') },
+                        method: 'POST',
+                        dataType: 'json',
+                        error: err => {
+                            alert("An error occured while fetching single data")
+                        },
+                        success: function(resp) {
+                            if (!!resp.status) {
+                                Object.keys(resp.data).map(k => {
+                                    if ($('#edit_modal_anawim').find('input[name="' + k + '"]').length > 0)
+                                        $('#edit_modal_anawim').find('input[name="' + k + '"]').val(resp.data[k])
+                                })
+                                $('#edit_modal_anawim').modal('show')
+                            } else {
+                                alert("An error occured while fetching single data")
+                            }
+                        }
+                    })
+                })
                 $('.delete_data_anawim').click(function() {
                     $.ajax({
                         url: './anawim_table/get_single.php',

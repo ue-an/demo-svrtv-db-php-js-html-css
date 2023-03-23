@@ -35,7 +35,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $arr_length = count($arr_att_name)-1;
                         $lastname = $arr_att_name[$arr_length];
                         $mobile_number = $row['2'];
-                        $isBonafied = "";
+                        $int = (int)$mobile_number;
                         $isFeastAttendee = "";
                         $feastName = $row['3'];
                         $district = $row['4'];
@@ -74,35 +74,81 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                 /* END OF USERS */
     
                 /* EVENT */
-                // if ($p_table === "event") {
-                //     foreach ($sheetData as $row) {
-                //         $orderNo = uniqid("");
-                //         $receiptNo = uniqid("");
-                //         $orderno_init = $row['0'];
-                //         $receiptno_init = $row['1'];
-                //         $userID = $row['2'];
-                //         $transactionDate = $row['3'];
-                //         $transactionAmount = $row['4'];
-                //         $eventName = ['5'];
-                //         $ticketType = $row['6'];
-                //         $eventType = $row['7'];
-                //         $paymentMethod = $row['8'];
-                //         $sql = "INSERT INTO events (orderNo, receiptNo, userID, transactionDate, transactionAmount, eventName, ticketType, eventType, paymentMethod) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                //         $stmt = mysqli_stmt_init($p_conn);
-                //         if (!mysqli_stmt_prepare($stmt, $sql)) {
-                //             exit();
-                //         }
-                //         mysqli_stmt_bind_param($stmt,"sssssssss",$orderno_init, $receiptno_init, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
-                //         mysqli_stmt_execute($stmt);
-                //         mysqli_stmt_close($stmt);
-                //         if ($sql) {
-                //             $resp['status'] = 'success';
-                //         } else {
-                //             $resp['status'] = 'failed';
-                //             $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
-                //         }
-                //     }
-                // }
+                if ($p_table === "event") {
+                    foreach ($sheetData as $row) {
+                        
+                        $orderno_init = $row['0'];
+                        $receiptno_init = $row['1'];
+                        
+                        $userID = $row['2'];
+                        $transactionDate = $row['3'];
+                        $transactionAmount = $row['4'];
+                        $eventName = ['5'];
+                        $ticketType = $row['6'];
+                        $eventType = $row['7'];
+                        $paymentMethod = $row['8'];
+
+                        $sql = "INSERT INTO events (orderNo, receiptNo, userID, transactionDate, transactionAmount, eventName, ticketType, eventType, paymentMethod) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        $stmt = mysqli_stmt_init($p_conn);
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            exit();
+                        }
+                        //check if receiptno is null
+                        if (is_null($receiptno_init) && is_null($orderno_init)) {
+                            if (str_contains($eventType, 'feast')) {
+                                $orderNo = uniqid("fc-ordgen-");
+                                $receiptNo = uniqid("fc-rcptgen-");
+                            }
+                            if (str_contains($eventType, 'jewels')) {
+                                $orderNo = uniqid("jc-ordgen-");
+                                $receiptNo = uniqid("jc-rcptgen-");
+                            }
+                            mysqli_stmt_bind_param($stmt,"sssssssss",$orderNo, $receiptNo, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                        }
+                        if (is_null($receiptno_init) || is_null($orderno_init)) {
+                            if (is_null($orderno_init)) {
+                                if (str_contains($eventType, 'feast')) {
+                                    $orderNo = uniqid("fc-im-");
+                                }
+                                if (str_contains($eventType, 'jewels')) {
+                                    $orderNo = uniqid("jc-im-");
+                                }
+                                mysqli_stmt_bind_param($stmt,"sssssssss",$orderNo, $receiptno_init, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
+                                mysqli_stmt_execute($stmt);
+                                mysqli_stmt_close($stmt);
+                            }
+                            if (is_null($receiptno_init)) {
+                                if (str_contains($eventType, 'feast')) {
+                                    $receiptNo = uniqid("fc-rcptgen-");
+                                }
+                                if (str_contains($eventType, 'jewels')) {
+                                    $receiptNo = uniqid("jc-rcptgen-");
+                                }
+                                mysqli_stmt_bind_param($stmt,"sssssssss",$orderno_init, $receiptNo, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
+                                mysqli_stmt_execute($stmt);
+                                mysqli_stmt_close($stmt);
+                            }
+                        }
+                        if ($orderno_init !== "" && $receiptno_init !== "") {
+                            mysqli_stmt_bind_param($stmt,"sssssssss",$orderno_init, $receiptno_init, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                        }
+
+                        //check if orderno is null
+                        // mysqli_stmt_bind_param($stmt,"sssssssss",$orderno_init, $receiptno_init, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
+                        // mysqli_stmt_execute($stmt);
+                        // mysqli_stmt_close($stmt);
+                        if ($sql) {
+                            $resp['status'] = 'success';
+                        } else {
+                            $resp['status'] = 'failed';
+                            $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
+                        }
+                    }
+                }
                 /* END OF EVENT */
 
                 /* ANAWIM */
