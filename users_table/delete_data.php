@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$delete = $conn->query("DELETE FROM `users` where userID = '{$userID}'");
+$delete = $conn->query("DELETE FROM `users` where user_id = '{$userID}'");
 if($delete){
     $resp['status'] = 'success';
 }else{

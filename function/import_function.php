@@ -54,7 +54,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
             
                         $user_exist = userExist($p_conn, $email, $lastname, $firstname);
                         if ($user_exist === false) {
-                            $sql = "INSERT INTO users (userID, email, lastname, firstname, mobile, isBonafied) VALUES (?, ?, ?, ?, ?, ?)";
+                            $sql = "INSERT INTO users (user_id, email, last_name, first_name, mobile_no, is_bonafied) VALUES (?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();

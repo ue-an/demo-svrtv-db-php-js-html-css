@@ -5,9 +5,9 @@ extract($_POST);
 $mobile_num = strval($mobile);
  
 $update = $conn->query("UPDATE `users` set `email` = '{$email}',
-`lastname` = '{$lastname}', `firstname` = '{$firstname}', `mobile` = '{$mobile_num}',
-`isBonafied` = '{$isMain}', `isFeastAttendee` = '{$isFeastAttendee}', `feastName` = '{$feastName}',
-`district` = '{$district}', `address` = '{$address}', `city` = '{$city}', `country` = '{$country}' where userID = '{$userID}'");
+`last_name` = '{$lastname}', `first_name` = '{$firstname}', `mobile_no` = '{$mobile_num}',
+`is_bonafied` = '{$isMain}', `is_feast_attendee` = '{$isFeastAttendee}', `feast_name` = '{$feastName}',
+`feast_district` = '{$district}', `address` = '{$address}', `city` = '{$city}', `country` = '{$country}' where user_id = '{$userID}'");
 if($update){
     $resp['status'] = 'success';
 }else{

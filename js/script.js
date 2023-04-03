@@ -20,7 +20,7 @@ $(function() {
                 method: 'POST'
             },
             columns: [{
-                    data: 'userID',
+                    data: 'user_id',
                     className: 'py-0 px-1'
                 },
                 {
@@ -28,31 +28,31 @@ $(function() {
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'lastname',
+                    data: 'last_name',
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'firstname',
+                    data: 'first_name',
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'mobile',
+                    data: 'mobile_no',
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'isBonafied',
+                    data: 'is_bonafied',
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'isFeastAttendee',
+                    data: 'is_feast_attendee',
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'feastName',
+                    data: 'feast_name',
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'district',
+                    data: 'feast_district',
                     className: 'py-0 px-1'
                 },
                 {
@@ -73,7 +73,7 @@ $(function() {
                     className: 'text-center py-0 px-1',
                     render: function(data, type, row, meta) {
                         console.log()
-                        return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data btn-primary" href="javascript:void(0)" data-id="' + (row.userID) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data btn-danger" href="javascript:void(0)" data-id="' + (row.userID) + '">Delete</a>';
+                        return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data btn-primary" href="javascript:void(0)" data-id="' + (row.user_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data btn-danger" href="javascript:void(0)" data-id="' + (row.user_id) + '">Delete</a>';
                     }
                 }
             ],

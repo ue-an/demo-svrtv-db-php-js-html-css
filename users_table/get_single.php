@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$query = $conn->query("SELECT * FROM `users` where userID = '{$userID}'");
+$query = $conn->query("SELECT * FROM `users` where user_id = '{$userID}'");
 if($query){
     $resp['status'] = 'success';
     $resp['data'] = $query->fetch_array();

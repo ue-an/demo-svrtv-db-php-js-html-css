@@ -1,6 +1,6 @@
 <?php
 function userExist($mysqli, $email, $lastname, $firstname) {
- $sql = "SELECT * FROM users WHERE (email = ? AND lastname = ?) AND firstname = ?";
+ $sql = "SELECT * FROM users WHERE (email = ? AND last_name = ?) AND first_name = ?";
  $stmt = mysqli_stmt_init($mysqli);
  if (!mysqli_stmt_prepare($stmt, $sql)) {
   exit();

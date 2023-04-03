@@ -7,21 +7,21 @@ $totalCount = $conn->query("SELECT * FROM `users` ")->num_rows;
 $search_where = "";
 if(!empty($search)){
     $search_where = " where ";
-    $search_where .= " userID LIKE '%{$search['value']}%' ";
+    $search_where .= " user_id LIKE '%{$search['value']}%' ";
     $search_where .= " OR email LIKE '%{$search['value']}%' ";
-    $search_where .= " OR lastname LIKE '%{$search['value']}%' ";
-    $search_where .= " OR firstname LIKE '%{$search['value']}%' ";
-    $search_where .= " OR isBonafied LIKE '%{$search['value']}%' ";
+    $search_where .= " OR last_name LIKE '%{$search['value']}%' ";
+    $search_where .= " OR first_name LIKE '%{$search['value']}%' ";
+    $search_where .= " OR is_bonafied LIKE '%{$search['value']}%' ";
 }
-$columns_arr = array("userID",
+$columns_arr = array("user_id",
                      "email",                     
-                     "lastname",
-                     "firstname",
-                     "mobile",
-                     "isBonafied",
-                     "isFeastAttendee",
-                     "feastName",
-                     "district",
+                     "last_name",
+                     "first_name",
+                     "mobile_no",
+                     "is_bonafied",
+                     "is_feast_attendee",
+                     "feast_name",
+                     "feast_district",
                      "address",
                      "city",
                      "country"
@@ -35,8 +35,8 @@ $data = array();
 $i= 1 + $start;
 while($row = $query->fetch_assoc()){
     $row['no'] = $i++;
-    $row['isBonafied'] = $row['isBonafied'] == 0 ? "true" : "false";
-    $row['isFeastAttendee'] = $row['isFeastAttendee'] == 0 ? "true" : "false";
+    $row['is_bonafied'] = $row['is_bonafied'] == 0 ? "true" : "false";
+    $row['is_feast_attendee'] = $row['is_feast_attendee'] == 0 ? "true" : "false";
     $data[] = $row;
 }
 echo json_encode(array('draw'=>$draw,

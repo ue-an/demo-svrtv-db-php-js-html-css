@@ -11,6 +11,19 @@
 
 <script src="js/bootstrap.bundle.min.js"></script>
     <script>
+
+        //dropdowns
+        // var deliverable = document.getElementById("isBonafied");
+        // var deliverableVal = deliverable.style.getPropertyValue;
+        // var deliver_option1 = document.getElementById("deliverable-dd1");
+        // var deliver_option2 = document.getElementById("deliverable-dd2");
+
+        // function changeDeliverOptionValue() {
+        //     deliver_option1.nodeValue = deliverableVal == "0" ? "true" : "false";
+        //     deliver_option2.nodeValue = deliver_option1.style.getPropertyValue == "true" ? "false" : "true";
+        // }
+        //end-dropdowns
+
         var el = document.getElementById("wrapper");
         var toggleButton = document.getElementById("menu-toggle");
 
@@ -98,5 +111,7 @@
             feastapp_table.style.display = "block";
             closeAll(feastapp_table.id);
         }
+
+        
     </script>
 </html>

@@ -56,11 +56,11 @@ include 'header.php';
                 <?php
                 include 'users_table/users_index.php';
                 include 'event_table/event_index.php';
-                include 'anawim_table/anawim_index.php';
-                include 'feastph_table/feastph_index.php';
-                include 'holyweek_table/holyweek_index.php';
-                include 'feastmedia_table/feastmedia_index.php';
-                include 'feastapp_table/feastapp_index.php';
+                // include 'anawim_table/anawim_index.php';
+                // include 'feastph_table/feastph_index.php';
+                // include 'holyweek_table/holyweek_index.php';
+                // include 'feastmedia_table/feastmedia_index.php';
+                // include 'feastapp_table/feastapp_index.php';
                 ?>
             </div>
         </div>
@@ -154,27 +154,29 @@ include 'header.php';
                             <!-- last name -->
                             <div class="form-group">
                                 <label class="control-label">Last Name</label>
-                                <input type="text" class="form-control rounded-0" id="lastname" name="lastname" required>
+                                <input type="text" class="form-control rounded-0" id="lastname" name="last_name" required>
                             </div>
                             <!-- first name -->
                             <div class="form-group">
                                 <label class="control-label">First Name</label>
-                                <input type="text" class="form-control rounded-0" id="firstname" name="firstname" required>
+                                <input type="text" class="form-control rounded-0" id="firstname" name="first_name" required>
                             </div>
                             <!-- mobile number -->
                             <div class="form-group">
                                 <label class="control-label">Mobile Number</label>
-                                <input type="text" class="form-control rounded-0" id="mobile" name="mobile" required>
+                                <input type="text" class="form-control rounded-0" id="mobileno" name="mobile_no" required>
                             </div>
                             <!-- main email (deliverable) -->
                             <div class="form-group">
                                 <label class="control-label">Deliverable</label>
                                 <!-- <input type="text" class="form-control rounded-0" id="isMain" name="isMain" required> -->
                                 <br>
-                                <select name="isMain" id="isMain">
+
+                                <select name="is_bonafied" id="isBonafied">
                                     <option value="TRUE">TRUE</option>
-                                    <option value="FALSE">FALSE</option>
+                                    <option value="FALSE">FALSE</option>    
                                 </select>
+                                
                             </div>
                             <!-- feast attendee -->
                             <div class="form-group">
