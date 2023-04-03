@@ -6,7 +6,7 @@ require '../users_table/is_first_email.php';
 require '../feastph_table/check_dup_feastph.php';
 require '../feastmedia_table/check_dup_feastmedia.php';
 require '../holyweek_table/check_dup_holyweek.php';
-require '../anawim_table/check_dup_anawim.php';
+require '../feastmercyministries_table/check_dup_anawim.php';
 require '../feastapp_table/check_dup_feastapp.php';
 require '../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -76,6 +76,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                 /* EVENT */
                 if ($p_table === "event") {
                     foreach ($sheetData as $row) {
+                        $eventID = uniqid($p_idprefix);
                         
                         $orderno_init = $row['0'];
                         $receiptno_init = $row['1'];
@@ -88,7 +89,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $eventType = $row['7'];
                         $paymentMethod = $row['8'];
 
-                        $sql = "INSERT INTO events (orderNo, receiptNo, userID, transactionDate, transactionAmount, eventName, ticketType, eventType, paymentMethod) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        $sql = "INSERT INTO events (user_id, event_id, event_name, event_type) VALUES ( ?, ?, ?, ?)";
                         $stmt = mysqli_stmt_init($p_conn);
                         if (!mysqli_stmt_prepare($stmt, $sql)) {
                             exit();
@@ -103,7 +104,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                                 $orderNo = uniqid("jc-ordgen-");
                                 $receiptNo = uniqid("jc-rcptgen-");
                             }
-                            mysqli_stmt_bind_param($stmt,"sssssssss",$orderNo, $receiptNo, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
+                            mysqli_stmt_bind_param($stmt,"ssss",$userID, $eventID, $eventName, $eventType);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                         }

@@ -3,7 +3,7 @@ require '../function/import_function.php';
 $conn = $conn;
 $table = "event";
 $filename = 'file-event';
-$idprefix = "";
+$idprefix = "eventid-";
 $result = importFunction($conn, $table, $filename, $idprefix);
 echo $result;
 ?>
