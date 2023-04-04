@@ -20,47 +20,19 @@ $(function() {
             method: 'POST'
         },
         columns: [{
-                data: 'orderNo',
+                data: 'user_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'receiptNo',
+                data: 'event_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'userID',
+                data: 'event_name',
                 className: 'py-0 px-1'
             },
             {
-                targets: 2,
-                data: 'firstname',
-                className: 'py-0 px-1',
-                render: function (data, type, row) {
-                    return row.firstname+' '+row.lastname;
-                }
-            },
-            {
-                data: 'transactionDate',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'transactionAmount',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'eventName',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'ticketType',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'eventType',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'paymentMethod',
+                data: 'event_type',
                 className: 'py-0 px-1'
             },
             //

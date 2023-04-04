@@ -55,12 +55,12 @@ include 'header.php';
                 </div>
                 <?php
                 include 'users_table/users_index.php';
-                include 'event_table/event_index.php';
+                include 'events_table/events_index.php';
                 // include 'anawim_table/anawim_index.php';
                 // include 'feastph_table/feastph_index.php';
                 // include 'holyweek_table/holyweek_index.php';
                 // include 'feastmedia_table/feastmedia_index.php';
-                // include 'feastapp_table/feastapp_index.php';
+                include 'feastapp_table/feastapp_index.php';
                 ?>
             </div>
         </div>

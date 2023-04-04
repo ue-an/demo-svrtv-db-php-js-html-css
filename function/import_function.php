@@ -190,22 +190,25 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                 }
                 /* END OF EVENTS */
 
-                /* ANAWIM */
-                if ($p_table === "anawim") {
+                /* ANAWIM / FEAST MERCY MINISTRY */
+                if ($p_table === "fmm") {
                     foreach ($sheetData as $row) {
                         $anawimID = uniqid($p_idprefix);
                         $userID = strtolower($row['0']);
-                        $monthlyDonation = $row['1'];
-                        $category = strtolower($row['2']);
+                        $donorType = $row['1'];
+                        $donationStart = strtolower($row['2']);
+                        $donationEnd = strtolower($row['3']);
+                        $amount = strtolower($row['4']);
+                        $payMethod = strtolower($row['5']);
                        
                         // $anawim_exist = anawimExist($p_conn, $userID, $address);
                         // if ($anawim_exist === false) {
-                            $sql = "INSERT INTO anawim (anawimID, userID, monthlyDonation, category) VALUES (?, ?, ?, ?)";
+                            $sql = "INSERT INTO feastmercyministry (fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method) VALUES (?, ?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
                             }
-                            mysqli_stmt_bind_param($stmt,"ssss",$anawimID, $userID, $monthlyDonation, $category);
+                            mysqli_stmt_bind_param($stmt,"sssssss",$anawimID, $userID, $donorType, $donationStart, $donationEnd, $amount, $payMethod);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                             if($sql){
@@ -220,19 +223,20 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                 /* END OF ANAWIM */
 
                 /* HOLYWEEK */
-                if ($p_table === "holyweek") {
+                if ($p_table === "hwr") {
                     foreach ($sheetData as $row) {
                         $holyweekID = uniqid($p_idprefix);
                         $userID = strtolower($row['0']);
+                        $eventDate = strtolower($row['1']);
                        
                         $holyweek_exist = holyweekExist($p_conn, $userID);
                         if ($holyweek_exist === false) {
-                            $sql = "INSERT INTO holyweekretreat (holyweekretreatID, userID) VALUES (?, ?)";
+                            $sql = "INSERT INTO holyweekretreat (hwr_id, user_id, event_date) VALUES (?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
                             }
-                            mysqli_stmt_bind_param($stmt,"ss",$holyweekID, $userID);
+                            mysqli_stmt_bind_param($stmt,"sss",$holyweekID, $userID, $eventDate);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                             if($sql){
@@ -251,14 +255,16 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                     foreach ($sheetData as $row) {
                         $feastphID = uniqid($p_idprefix);
                         $userID = strtolower($row['0']);
+                        $fileName = strtolower($row['1']);
+                        $fileDownloadDate = strtolower($row['2']);
                         $feastph_exist = feastphExist($p_conn, $userID);
                         if ($feastph_exist === false) {
-                            $sql = "INSERT INTO feastph (feastphID, userID) VALUES (?, ?)";
+                            $sql = "INSERT INTO feastph (feastph_id, user_id, file_name, file_download_date) VALUES (?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
                             }
-                            mysqli_stmt_bind_param($stmt,"ss",$feastphID, $userID);
+                            mysqli_stmt_bind_param($stmt,"ssss",$feastphID, $userID, $fileName, $fileDownloadDate);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                             if($sql){
@@ -280,12 +286,12 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                        
                         $feastmedia_exist = feastmediaExist($p_conn, $userID);
                         if ($feastmedia_exist === false) {
-                            $sql = "INSERT INTO feastmedia (feastmediaID, userID) VALUES (?, ?)";
+                            $sql = "INSERT INTO feastmedia (feast_media_event_id, user_id, event_name, ticket_type, event_type, event_date, ticket_cost, no_of_tickets_bought, total_cost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
                             }
-                            mysqli_stmt_bind_param($stmt,"ss",$feastmediaID, $userID);
+                            mysqli_stmt_bind_param($stmt,"ssssssss",$feastmediaID, $userID);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                             if($sql){
@@ -307,7 +313,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $downloadDate = $row['1']; //format: yyyy-mm-dd
                         $feastapp_exist = feastappExist($p_conn, $userID, $downloadDate);
                         if ($feastapp_exist === false) {
-                            $sql = "INSERT INTO feastapp (feastappID, userID, downloadDate) VALUES (?, ?, ?)";
+                            $sql = "INSERT INTO feastapp (feastapp_id, user_id, date_downloaded) VALUES (?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();

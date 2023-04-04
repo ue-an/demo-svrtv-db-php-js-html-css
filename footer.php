@@ -32,7 +32,7 @@
         };
 
         var user_table = document.getElementById("row-userstable");
-        var event_table = document.getElementById("row-eventtable");
+        var event_table = document.getElementById("row-eventstable");
         var anawim_table = document.getElementById("row-anawimtable");
         var feastph_table = document.getElementById("row-feastphtable");
         var holyweek_table = document.getElementById("row-holyweektable");

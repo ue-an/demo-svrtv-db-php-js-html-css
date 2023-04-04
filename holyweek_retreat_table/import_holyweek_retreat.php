@@ -1,9 +1,9 @@
 <?php
 require '../function/import_function.php';
 $conn = $conn;
-$table = "anawim";
-$filename = "file-anawim";
-$idprefix = "anid-";
+$table = "hwr";
+$filename = "file-holyweek";
+$idprefix = "hwrid-";
 $result = importFunction($conn, $table, $filename, $idprefix);
 echo $result;
 ?>
