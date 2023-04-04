@@ -73,8 +73,22 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                 }
                 /* END OF USERS */
     
-                /* EVENT */
-                if ($p_table === "event") {
+                /* EVENTS */
+                //events
+                if ($p_table === "events") {
+                    foreach ($sheetData as $row) {
+                       
+                        if ($sql) {
+                            $resp['status'] = 'success';
+                        } else {
+                            $resp['status'] = 'failed';
+                            $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
+                        }
+                    }
+                }
+
+                //events_orders
+                if ($p_table === "events_orders") {
                     foreach ($sheetData as $row) {
                         $eventID = uniqid($p_idprefix);
                         
@@ -89,7 +103,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $eventType = $row['7'];
                         $paymentMethod = $row['8'];
 
-                        $sql = "INSERT INTO events (user_id, event_id, event_name, event_type) VALUES ( ?, ?, ?, ?)";
+                        $sql = "INSERT INTO events_orders (order_no, receipt_no, event_id, ticket_id, order_status, order_created_date, order_completed_date, pay_method) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
                         $stmt = mysqli_stmt_init($p_conn);
                         if (!mysqli_stmt_prepare($stmt, $sql)) {
                             exit();
@@ -116,7 +130,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                                 if (str_contains($eventType, 'jewels')) {
                                     $orderNo = uniqid("jc-im-");
                                 }
-                                mysqli_stmt_bind_param($stmt,"sssssssss",$orderNo, $receiptno_init, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
+                                mysqli_stmt_bind_param($stmt,"ssssssss",$orderNo, $receiptno_init, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
                                 mysqli_stmt_execute($stmt);
                                 mysqli_stmt_close($stmt);
                             }
@@ -150,7 +164,31 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         }
                     }
                 }
-                /* END OF EVENT */
+                //events_ticket
+                if ($p_table === "events_ticket") {
+                    foreach ($sheetData as $row) {
+                        $ticketID = uniqid($p_idprefix);
+                        $ticketType = $row['0'];
+                        $ticketName = $row['1'];
+                        $ticketCost = $row['2'];
+                        
+                        $sql = "INSERT INTO events_ticket (ticket_id, ticket_type, ticket_name, ticket_cost) VALUES ( ?, ?, ?, ?)";
+                        $stmt = mysqli_stmt_init($p_conn);
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            exit();
+                        }
+                        mysqli_stmt_bind_param($stmt,"ssss",$ticketID, $ticketType, $ticketName, $ticketCost);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        if ($sql) {
+                            $resp['status'] = 'success';
+                        } else {
+                            $resp['status'] = 'failed';
+                            $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
+                        }
+                    }
+                }
+                /* END OF EVENTS */
 
                 /* ANAWIM */
                 if ($p_table === "anawim") {

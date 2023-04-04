@@ -1,22 +1,22 @@
-var eventTbl = '';
+var eventsTbl = '';
 $(function() {
     // draw function [called if the database updates]
     function draw_data() {
-     if ($.fn.dataTable.isDataTable('#event-tbl') && eventTbl != '') {
-         eventTbl.draw(true)
+     if ($.fn.dataTable.isDataTable('#events-tbl') && eventsTbl != '') {
+         eventsTbl.draw(true)
      } else {
-         load_data_event();
+         load_data_events();
      }
  }
 
  //Load Data
- function load_data_event() {
-    eventTbl = $('#event-tbl').DataTable({
+ function load_data_events() {
+    eventsTbl = $('#events-tbl').DataTable({
         dom: '<"row"B>flr<"py-2 my-2"t>ip',
         "processing": true,
         "serverSide": true,
         "ajax": {
-            url: "./event_table/get_event.php",
+            url: "./events_table/get_events.php",
             method: 'POST'
         },
         columns: [{
@@ -70,7 +70,7 @@ $(function() {
             //     className: 'text-center py-0 px-1',
             //     render: function(data, type, row, meta) {
             //         console.log()
-            //         return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_feastcon btn-primary" href="javascript:void(0)" data-id="' + (row.feastconID) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_feastcon btn-danger" href="javascript:void(0)" data-id="' + (row.feastconID) + '">Delete</a>';
+            //         return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_feastcon btn-primary" href="javascript:void(0)" data-id="' + (row.event_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_feastcon btn-danger" href="javascript:void(0)" data-id="' + (row.feastconID) + '">Delete</a>';
             //     }
             // }
         ],
@@ -121,14 +121,14 @@ $(function() {
             text: "Add Event",
             className: "btn btn-primary fw-bold py-0",
             action: function(e, dt, node, config) {
-                $('#add_modal_event').modal('show')
+                $('#add_modal_events').modal('show')
             }
         },
         {
             text: "Refresh",
             className: "btn btn-primary fw-bold py-0",
             action: function(e, dt, node, config) {
-                eventTbl.draw(true);
+                eventsTbl.draw(true);
             }
         },
         ],
@@ -136,23 +136,23 @@ $(function() {
             [1, "asc"]
         ],
         initComplete: function(settings) {
-            $('.paginate_button_event').addClass('p-1')
+            $('.paginate_button_events').addClass('p-1')
         }
     });
 }
 // /LoadData
-load_data_event()
+load_data_events()
 //Saving new Data
-$('#new-event-frm').submit(function(e) {
+$('#new-events-frm').submit(function(e) {
     e.preventDefault()
-    var file_data = $('#file-event')[0].files[0];
+    var file_data = $('#file-events')[0].files[0];
     var form_data = new FormData();
-    form_data.append('#file-event', file_data);
+    form_data.append('#file-events', file_data);
     if (file_data != undefined) {
-        $('#add_modal_event button').attr('disabled', true)
-        $('#add_modal_event button[form="new-event-frm"]').text("importing ...")
+        $('#add_modal_events button').attr('disabled', true)
+        $('#add_modal_events button[form="new-events-frm"]').text("importing ...")
         $.ajax({  
-            url:"./event_table/import_event.php",  
+            url:"./events_table/import_events.php",  
             method:"POST",
             data:new FormData(this),  
             contentType:false,          // The content type used when sending data to the server.  
@@ -170,7 +170,7 @@ $('#new-event-frm').submit(function(e) {
                             _el.hide()
                             _el.addClass('alert alert-primary alert_msg')
                             _el.text("Data successfully imported");
-                            $('#new-event-frm').get(0).reset()
+                            $('#new-events-frm').get(0).reset()
                             $('.modal').modal('hide')
                             $('#msg').append(_el)
                             _el.show('slow')
@@ -180,9 +180,9 @@ $('#new-event-frm').submit(function(e) {
                                     .remove()
                             }, 2500)
                 }
-                $('#add_modal_event button').attr('disabled', false)
-                $('#add_modal_event button[form="new-event-frm"]').text("Import")
-                $('#add_modal_event #file-event').val('');
+                $('#add_modal_events button').attr('disabled', false)
+                $('#add_modal_events button[form="new-events-frm"]').text("Import")
+                $('#add_modal_events #file-events').val('');
             }
        })  
     }

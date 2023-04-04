@@ -6,32 +6,20 @@ $totalCount = $conn->query("SELECT * FROM `events` ")->num_rows;
 $search_where = "";
 if (!empty($search)) {
     $search_where = " where ";
-    $search_where .= " orderNo LIKE '%{$search['value']}%'";
-    $search_where .= " OR receiptNo LIKE '%{$search['value']}%'";
-    $search_where .= " OR email LIKE '%{$search['value']}%'";
-    $search_where .= " OR transactionDate LIKE '%{$search['value']}%'";
-    $search_where .= " OR transactionAmount LIKE '%{$search['value']}%'";
-    $search_where .= " OR eventName LIKE '%{$search['value']}%'";
-    $search_where .= " OR ticketType LIKE '%{$search['value']}%'";
-    $search_where .= " OR eventType LIKE '%{$search['value']}%'";
-    $search_where .= " OR paymentMethod LIKE '%{$search['value']}%'";
+    $search_where .= " user_id LIKE '%{$search['value']}%'";
+    $search_where .= " OR event_id LIKE '%{$search['value']}%'";
+    $search_where .= " OR event_name LIKE '%{$search['value']}%'";
+    $search_where .= " OR event_type LIKE '%{$search['value']}%'";
 }
 $columns_arr = array(
-    "orderNo",
-    "receiptNo",
-    "userID",
-    "firstname",
-    "lastname",
-    "transactionDate",
-    "transactionAmount",
-    "eventName",
-    "ticketType",
-    "eventType",
-    "paymentMethod",
+    "user_id",
+    "event_id",
+    "event_name",
+    "event_type",
 );
 
-$query = $conn->query("SELECT orderNo, receiptNo, events.userID, users.firstname, users.lastname, transactionDate, transactionAmount, eventName, ticketType, eventType, paymentMethod FROM events INNER JOIN users ON events.userID = users.userID {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
-$recordsFilterCount = $conn->query("SELECT orderNo, receiptNo, events.userID, users.firstname, users.lastname, transactionDate, transactionAmount, eventName, ticketType, eventType, paymentMethod FROM events INNER JOIN users ON events.userID = users.userID {$search_where}")->num_rows;
+$query = $conn->query("SELECT user_id, event_id, event_name, event_type FROM events {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
+$recordsFilterCount = $conn->query("SELECT user_id, event_id, event_name, event_type FROM events {$search_where}")->num_rows;
 $recordsTotal = $totalCount;
 $recordsFiltered = $recordsFilterCount;
 $data = array();

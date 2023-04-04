@@ -248,9 +248,9 @@ include 'header.php';
     </div>
     <!-- /Delete Modal -->
 
-    <!-- EVENT MODALS -->
+    <!-- EVENTS MODALS -->
     <!-- Upload/Import Modal -->
-    <div class="modal fade" id="add_modal_event" data-bs-backdrop="static">
+    <div class="modal fade" id="add_modal_events" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -259,16 +259,16 @@ include 'header.php';
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                            <form action="" method="post" id="new-event-frm" name="new-event-frm" enctype="multipart/form-data">
+                            <form action="" method="post" id="new-events-frm" name="new-event-frm" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="file" class="control-label">Upload Excel File</label>
-                                    <input type="file" name="file-event" id="file-event" class="form-control" required>
+                                    <input type="file" name="file-events" id="file-events" class="form-control" required>
                                 </div>
                             </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-event-frm">Import</button>
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-events-frm">Import</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -276,7 +276,7 @@ include 'header.php';
     </div>
     <!-- /Upload/Import Modal -->
     <!-- Edit Modal -->
-    <div class="modal fade" id="edit_modal_event" data-bs-backdrop="static">
+    <div class="modal fade" id="edit_modal_events" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -285,7 +285,7 @@ include 'header.php';
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form action="" id="edit-event-frm">
+                        <form action="" id="edit-events-frm">
                             <input type="hidden" name="orderID">
                             <input type="hidden" name="receiptID">
                             <input name="userID" disabled>
@@ -298,7 +298,7 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" form="edit-event-frm">Save</button>
+                    <button type="submit" class="btn btn-primary" form="edit-eventsrm">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -306,7 +306,7 @@ include 'header.php';
     </div>
     <!-- /Edit Modal -->
     <!-- Delete Modal -->
-    <div class="modal fade" id="delete_modal_event" data-bs-backdrop="static">
+    <div class="modal fade" id="delete_modal_events" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -322,7 +322,7 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" form="delete-event-frm">Yes</button>
+                    <button type="submit" class="btn btn-danger" form="delete-events-frm">Yes</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
