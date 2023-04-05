@@ -18,19 +18,35 @@ $(function() {
             method: 'POST'
         },
         columns: [{
-                data: 'feastmediaID',
+                data: 'feast_media_event_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'email',
+                data: 'user_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'firstname',
+                data: 'event_name',
                 className: 'py-0 px-3'
             },
             {
-                data: 'lastname',
+                data: 'ticket_type',
+                className: 'py-0 px-1'
+            },
+            {
+                data: 'event_type',
+                className: 'py-0 px-1'
+            },
+            {
+                data: 'ticket_cost',
+                className: 'py-0 px-1'
+            },
+            {
+                data: 'no_of_tickets_bought',
+                className: 'py-0 px-1'
+            },
+            {
+                data: 'total_cost',
                 className: 'py-0 px-1'
             },
         ],

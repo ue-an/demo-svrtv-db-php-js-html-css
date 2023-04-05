@@ -56,10 +56,10 @@ include 'header.php';
                 <?php
                 include 'users_table/users_index.php';
                 include 'events_table/events_index.php';
-                // include 'anawim_table/anawim_index.php';
-                // include 'feastph_table/feastph_index.php';
-                // include 'holyweek_table/holyweek_index.php';
-                // include 'feastmedia_table/feastmedia_index.php';
+                include 'feastmercyministry_table/fmm_index.php';
+                include 'feastph_table/feastph_index.php';
+                include 'holyweek_retreat_table/holyweek_retreat_index.php';
+                include 'feastmedia_table/feastmedia_index.php';
                 include 'feastapp_table/feastapp_index.php';
                 ?>
             </div>

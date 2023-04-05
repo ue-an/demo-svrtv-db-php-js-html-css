@@ -33,17 +33,17 @@
 
         var user_table = document.getElementById("row-userstable");
         var event_table = document.getElementById("row-eventstable");
-        var anawim_table = document.getElementById("row-anawimtable");
+        var fmm_table = document.getElementById("row-fmmtable");
         var feastph_table = document.getElementById("row-feastphtable");
-        var holyweek_table = document.getElementById("row-holyweektable");
+        var hwr_table = document.getElementById("row-hwrtable");
         var feastmedia_table = document.getElementById("row-feastmediatable");
         var feastapp_table = document.getElementById("row-feastapptable");
 
         let tables = [
             user_table,
             event_table,
-            anawim_table,
-            holyweek_table,
+            fmm_table,
+            hwr_table,
             feastph_table,
             feastmedia_table,
             feastapp_table,
@@ -82,9 +82,9 @@
             closeAll(event_table.id);
         }
 
-        function openSideAnawim() {
-            anawim_table.style.visibility = "visible";
-            anawim_table.style.display = "block";
+        function openSideFMM() {
+            fmm_table.style.visibility = "visible";
+            fmm_table.style.display = "block";
             closeAll(anawim_table.id);
         }
 
@@ -94,9 +94,9 @@
             closeAll(feastph_table.id);
         }
 
-        function openSideHolyweek() {
-            holyweek_table.style.visibility = "visible";
-            holyweek_table.style.display = "block";
+        function openSideHWR() {
+            holyweek_retreat_table.style.visibility = "visible";
+            holyweek_retreat_table.style.display = "block";
             closeAll(holyweek_table.id);
         }
 
