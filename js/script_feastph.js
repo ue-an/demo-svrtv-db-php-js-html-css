@@ -18,23 +18,19 @@ $(function() {
             method: 'POST'
         },
         columns: [{
-                data: 'feastphID',
+                data: 'feastph_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'email',
+                data: 'user_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'firstname',
+                data: 'file_name',
                 className: 'py-0 px-3'
             },
             {
-                data: 'lastname',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'mobile',
+                data: 'file_download_date',
                 className: 'py-0 px-1'
             },
         ],

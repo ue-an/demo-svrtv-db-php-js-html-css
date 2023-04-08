@@ -21,10 +21,10 @@ include 'header.php';
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvent()">
                  <!-- <i class="fas fa-chart-line me-2"> </i>-->
                        Event</button>
-                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideAnawim()">
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFMM()">
                  <!-- <i class="fas fa-chart-line me-2"> </i>-->
                        Feast Mercy Ministries</button>
-                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideHolyweek()">
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideHWR()">
                  <!-- <i class="fas fa-chart-line me-2"> </i>-->
                        Holy Week Retreat</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastph()">

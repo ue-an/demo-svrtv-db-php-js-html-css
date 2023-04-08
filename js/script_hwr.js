@@ -1,7 +1,7 @@
 var holyweekTbl = '';
 $(function() {
  function draw_data() {
-  if ($.fn.dataTable.isDataTable('#holyweek-tbl') && holyweekTbl!= '') {
+  if ($.fn.dataTable.isDataTable('#hwr-tbl') && holyweekTbl!= '') {
    holyweekTbl.draw(true)
    } else {
        load_data_holyweek();
@@ -9,33 +9,25 @@ $(function() {
  }
  //Load Data
  function load_data_holyweek() {
-  holyweekTbl = $('#holyweek-tbl').DataTable({
+  holyweekTbl = $('#hwr-tbl').DataTable({
    dom: '<"row"B>flr<"py-2 my-2"t>ip',
         "processing": true,
         "serverSide": true,
         "ajax": {
-            url: "./holyweek_table/get_holyweek.php",
+            url: "./holyweek_retreat_table/get_holyweek_retreat.php",
             method: 'POST'
         },
         columns: [{
-                data: 'holyweekretreatID',
+                data: 'hwr_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'email',
+                data: 'user_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'firstname',
+                data: 'event_date',
                 className: 'py-0 px-3'
-            },
-            {
-                data: 'lastname',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'mobile',
-                className: 'py-0 px-1'
             },
         ],
         drawCallback: function(settings) {

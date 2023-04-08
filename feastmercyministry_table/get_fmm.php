@@ -19,17 +19,17 @@ $columns_arr = array(
                      "fmm_id",
                      "user_id",
                      "donor_type",
-                     "donor_start_date",
-                     "donor_end_date",
+                     "donation_start_date",
+                     "donation_end_date",
                      "amount",
                      "pay_method",
                     );
 // $query2 = $conn->query("SELECT * FROM `feastcon` {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start} ");
-$query = $conn->query("SELECT fmm_id, user_id, donor_type, donor_start_date, donor_end_date, amount, pay_method FROM feastmercyministry {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
+$query = $conn->query("SELECT fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
 // $query = $conn->query("SELECT feastconID, users.email, country, feastDistrict, ticketType, classAttended
 // FROM (feastcon
 // INNER JOIN users ON feastcon.userID = users.userID)");
-$recordsFilterCount = $conn->query("SELECT fmm_id, user_id, donor_type, donor_start_date, donor_end_date, amount, pay_method FROM feastmercyministry {$search_where} ")->num_rows;
+$recordsFilterCount = $conn->query("SELECT fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry {$search_where} ")->num_rows;
  
 $recordsTotal= $totalCount;
 $recordsFiltered= $recordsFilterCount;

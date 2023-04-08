@@ -31,7 +31,7 @@
             </thead>
             <tfoot>
                 <tr class="table-primary text-dark bg-gradient bg-opacity-150">
-                <th class="px-1 py-1 text-center">AnawimID</th>
+                    <th class="px-1 py-1 text-center">AnawimID</th>
                     <th class="px-1 py-1 text-center">UserID</th>
                     <th class="px-1 py-1 text-center">DonorType</th>
                     <th class="px-1 py-1 text-center">StartDonationDate</th>

@@ -3,9 +3,9 @@
 <!-- tables scripts -->
 <script src="js/script.js"></script>
 <script src="js/script_event.js"></script>
-<script src="js/script_anawim.js"></script>
+<script src="js/script_fmm.js"></script>
 <script src="js/script_feastph.js"></script>
-<script src="js/script_holyweek.js"></script>
+<script src="js/script_hwr.js"></script>
 <script src="js/script_feastmedia.js"></script>
 <script src="js/script_feastapp.js"></script>
 
@@ -85,7 +85,7 @@
         function openSideFMM() {
             fmm_table.style.visibility = "visible";
             fmm_table.style.display = "block";
-            closeAll(anawim_table.id);
+            closeAll(fmm_table.id);
         }
 
         function openSideFeastph() {
@@ -95,9 +95,9 @@
         }
 
         function openSideHWR() {
-            holyweek_retreat_table.style.visibility = "visible";
-            holyweek_retreat_table.style.display = "block";
-            closeAll(holyweek_table.id);
+            hwr_table.style.visibility = "visible";
+            hwr_table.style.display = "block";
+            closeAll(hwr_table.id);
         }
 
         function openSideFeastmedia() {        
