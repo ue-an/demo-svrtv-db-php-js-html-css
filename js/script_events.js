@@ -20,10 +20,6 @@ $(function() {
             method: 'POST'
         },
         columns: [{
-                data: 'user_id',
-                className: 'py-0 px-1'
-            },
-            {
                 data: 'event_id',
                 className: 'py-0 px-1'
             },

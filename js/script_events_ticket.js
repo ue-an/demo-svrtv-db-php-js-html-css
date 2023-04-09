@@ -20,49 +20,25 @@ $(function() {
             method: 'POST'
         },
         columns: [{
-                data: 'orderNo',
+                data: 'ticket_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'receiptNo',
+                data: 'event_id',
                 className: 'py-0 px-1'
             },
             {
-                data: 'userID',
+                data: 'ticket_type',
                 className: 'py-0 px-1'
             },
             {
-                targets: 2,
-                data: 'firstname',
-                className: 'py-0 px-1',
-                render: function (data, type, row) {
-                    return row.firstname+' '+row.lastname;
-                }
-            },
-            {
-                data: 'transactionDate',
+                data: 'ticket_name',
                 className: 'py-0 px-1'
             },
             {
-                data: 'transactionAmount',
+                data: 'ticket_cost',
                 className: 'py-0 px-1'
-            },
-            {
-                data: 'eventName',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'ticketType',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'eventType',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'paymentMethod',
-                className: 'py-0 px-1'
-            },
+            }
             //
             // {
             //     data: null,
@@ -140,4 +116,5 @@ $(function() {
         }
     });
 }
+load_data_events_ticket();
 })

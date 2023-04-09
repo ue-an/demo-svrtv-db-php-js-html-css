@@ -111,7 +111,7 @@ $(function() {
                         },
                         success: function(resp) {
                             if (!!resp.status) {
-                                $('#delete_modal').find('input[name="userID"]').val(resp.data['userID'])
+                                $('#delete_modal').find('input[name="userID"]').val(resp.data['user_id'])
                                 $('#delete_modal').modal('show')
                             } else {
                                 alert("An error occured while fetching single data")
@@ -135,13 +135,13 @@ $(function() {
                 }
             },
             //will add new button for single entry
-            {
-                text: "Add Record",
-                className: "btn btn-primary fw-bold py-0",
-                action: function(e, dt, node, config) {
-                    $('#add_modal_single').modal('show')
-                }
-            },
+            // {
+            //     text: "Add Record",
+            //     className: "btn btn-primary fw-bold py-0",
+            //     action: function(e, dt, node, config) {
+            //         $('#add_modal_single').modal('show')
+            //     }
+            // },
             ],
             "order": [
                 [1, "asc"]
@@ -158,7 +158,7 @@ $(function() {
         $('#add_modal_single button').attr('disabled', true)
         $('#add_modal_single button[form="new-author-single-frm"]').text("saving ...")
         $.ajax({  
-            url:"./users_table/add_users.php",  
+            url:"./users_table/import_users.php",  
             method:"POST",
             data:new FormData(this),  
             contentType:false,          // The content type used when sending data to the server.  
@@ -206,7 +206,7 @@ $(function() {
             }
         })  
     })
-        //Saving new Data (Bulk)
+    //Saving new Data (Bulk)
     $('#new-author-frm').submit(function(e) {
             e.preventDefault()
             var file_data = $('#file')[0].files[0];

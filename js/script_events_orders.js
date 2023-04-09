@@ -42,7 +42,7 @@ $(function() {
             {
                 data: 'pay_method',
                 className: 'py-0 px-1'
-            },
+            }
             //
             // {
             //     data: null,
@@ -101,7 +101,7 @@ $(function() {
             text: "Add Event",
             className: "btn btn-primary fw-bold py-0",
             action: function(e, dt, node, config) {
-                $('#add_modal_events').modal('show')
+                $('#add_modal_event_order').modal('show')
             }
         },
         {
@@ -121,4 +121,51 @@ $(function() {
     });
 }
 load_data_events_orders();
+
+//Saving new Data (Bulk)
+$('#new-event-order-frm').submit(function(e) {
+    e.preventDefault()
+    var file_data = $('#file-event-order')[0].files[0];
+    var form_data = new FormData();
+    form_data.append('#file-event-order', file_data);
+    if (file_data != undefined) {
+        $('#add_modal_event_order button').attr('disabled', true)
+        $('#add_modal_event_order button[form="new-event-order-frm"]').text("importing ...")
+        $.ajax({  
+            url:"./events_table/import_events_orders.php",  
+            method:"POST",
+            data:new FormData(this),  
+            contentType:false,          // The content type used when sending data to the server.  
+            cache:false,                // To unable request pages to be cached  
+            processData:false,          // To send DOMDocument or non processed data file it is set to false 
+            error: err => {
+                alert("An error occured. Please check the source code and try again")
+            }, 
+            success: function(resp) {
+                const resp_arr = resp.split("}");
+                if (resp_arr.some(res => res.status === 'failed')) {
+                    alert("add message here if found some 'failed' result");
+                } else {
+                    var _el = $('<div>')
+                            _el.hide()
+                            _el.addClass('alert alert-primary alert_msg')
+                            _el.text("Data successfully imported");
+                            $('#new-event-order-frm').get(0).reset()
+                            $('.modal').modal('hide')
+                            $('#msg').append(_el)
+                            _el.show('slow')
+                            draw_data();
+                            setTimeout(() => {
+                                _el.hide('slow')
+                                    .remove()
+                            }, 2500)
+                }
+                $('#add_modal_event_order button').attr('disabled', false)
+                $('#add_modal_event_order button[form="new-event-order-frm"]').text("Import")
+                $('#add_modal_event_order #file-event-order').val('');
+            }
+       })  
+    }
+    return false;
+})
 })

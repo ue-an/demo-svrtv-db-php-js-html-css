@@ -2,8 +2,9 @@
 <!-- added script related to admin ui -->
 <!-- tables scripts -->
 <script src="js/script.js"></script>
+<script src="js/script_events.js"></script>
 <script src="js/script_events_orders.js"></script>
-<script src="js/script_events_tickets.js"></script>
+<script src="js/script_events_ticket.js"></script>
 <script src="js/script_fmm.js"></script>
 <script src="js/script_feastph.js"></script>
 <script src="js/script_hwr.js"></script>
@@ -34,7 +35,8 @@
 
         var user_table = document.getElementById("row-userstable");
         var event_order_table = document.getElementById("row-eventsorderstable");
-        var event_ticket_table = document.getElementById("row-eventstickettable")
+        var event_ticket_table = document.getElementById("row-eventstickettable");
+        var events_table = document.getElementById("row-eventstable");
         var fmm_table = document.getElementById("row-fmmtable");
         var feastph_table = document.getElementById("row-feastphtable");
         var hwr_table = document.getElementById("row-hwrtable");
@@ -43,6 +45,7 @@
 
         let tables = [
             user_table,
+            events_table,
             event_order_table,
             event_ticket_table,
             fmm_table,
@@ -79,6 +82,11 @@
         }
 
         //Event side menu
+        function openSideEvents() {
+            events_table.style.visibility = "visible";
+            events_table.style.display = "block";
+            closeAll(events_table.id);
+        }
         function openSideEventOrders() {
             event_order_table.style.visibility = "visible";
             event_order_table.style.display = "block";

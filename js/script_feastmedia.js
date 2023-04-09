@@ -41,14 +41,6 @@ $(function() {
                 data: 'ticket_cost',
                 className: 'py-0 px-1'
             },
-            {
-                data: 'no_of_tickets_bought',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'total_cost',
-                className: 'py-0 px-1'
-            },
         ],
         drawCallback: function(settings) {
             

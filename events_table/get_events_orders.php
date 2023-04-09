@@ -8,9 +8,9 @@ if (!empty($search)) {
     $search_where = " where ";
     $search_where .= " order_no LIKE '%{$search['value']}%'";
     $search_where .= " OR receipt_no LIKE '%{$search['value']}%'";
-    $search_where .= " OR order_status LIKE '%{$search['value']}%";
-    $search_where .= " OR order_created_date LIKE '%{$search['value']}%";
-    $search_where .= " OR order_completed_date LIKE '%{$search['value']}%";
+    $search_where .= " OR order_status LIKE '%{$search['value']}%'";
+    $search_where .= " OR order_created_date LIKE '%{$search['value']}%'";
+    $search_where .= " OR order_completed_date LIKE '%{$search['value']}%'";
     $search_where .= " OR pay_method LIKE '%{$search['value']}%'";
 }
 $columns_arr = array(
