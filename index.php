@@ -18,9 +18,12 @@ include 'header.php';
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideUsers()">
                  <!-- <i class="fas fa-project-diagram me-2"> </i>-->
                        Users</button>
-                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvent()">
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEventOrders()">
                  <!-- <i class="fas fa-chart-line me-2"> </i>-->
-                       Event</button>
+                       Event Orders</button>
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEventTickets()">
+                 <!-- <i class="fas fa-chart-line me-2"> </i>-->
+                       Event Tickets</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFMM()">
                  <!-- <i class="fas fa-chart-line me-2"> </i>-->
                        Feast Mercy Ministries</button>
@@ -55,7 +58,8 @@ include 'header.php';
                 </div>
                 <?php
                 include 'users_table/users_index.php';
-                include 'events_table/events_index.php';
+                include 'events_table/events_orders_index.php';
+                include 'events_table/events_ticket_index.php';
                 include 'feastmercyministry_table/fmm_index.php';
                 include 'feastph_table/feastph_index.php';
                 include 'holyweek_retreat_table/holyweek_retreat_index.php';

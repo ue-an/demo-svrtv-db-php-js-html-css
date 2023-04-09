@@ -2,7 +2,8 @@
 <!-- added script related to admin ui -->
 <!-- tables scripts -->
 <script src="js/script.js"></script>
-<script src="js/script_event.js"></script>
+<script src="js/script_events_orders.js"></script>
+<script src="js/script_events_tickets.js"></script>
 <script src="js/script_fmm.js"></script>
 <script src="js/script_feastph.js"></script>
 <script src="js/script_hwr.js"></script>
@@ -32,7 +33,8 @@
         };
 
         var user_table = document.getElementById("row-userstable");
-        var event_table = document.getElementById("row-eventstable");
+        var event_order_table = document.getElementById("row-eventsorderstable");
+        var event_ticket_table = document.getElementById("row-eventstickettable")
         var fmm_table = document.getElementById("row-fmmtable");
         var feastph_table = document.getElementById("row-feastphtable");
         var hwr_table = document.getElementById("row-hwrtable");
@@ -41,7 +43,8 @@
 
         let tables = [
             user_table,
-            event_table,
+            event_order_table,
+            event_ticket_table,
             fmm_table,
             hwr_table,
             feastph_table,
@@ -76,10 +79,16 @@
         }
 
         //Event side menu
-        function openSideEvent() {
-            event_table.style.visibility = "visible";
-            event_table.style.display = "block";
-            closeAll(event_table.id);
+        function openSideEventOrders() {
+            event_order_table.style.visibility = "visible";
+            event_order_table.style.display = "block";
+            closeAll(event_order_table.id);
+        }
+
+        function openSideEventTickets() {
+            event_ticket_table.style.visibility = "visible";
+            event_ticket_table.style.display = "block";
+            closeAll(event_ticket_table.id);
         }
 
         function openSideFMM() {

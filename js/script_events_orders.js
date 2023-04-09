@@ -20,47 +20,27 @@ $(function() {
             method: 'POST'
         },
         columns: [{
-                data: 'orderNo',
+                data: 'order_no',
                 className: 'py-0 px-1'
             },
             {
-                data: 'receiptNo',
+                data: 'receipt_no',
                 className: 'py-0 px-1'
             },
             {
-                data: 'userID',
+                data: 'order_status',
                 className: 'py-0 px-1'
             },
             {
-                targets: 2,
-                data: 'firstname',
-                className: 'py-0 px-1',
-                render: function (data, type, row) {
-                    return row.firstname+' '+row.lastname;
-                }
-            },
-            {
-                data: 'transactionDate',
+                data: 'order_created_date',
                 className: 'py-0 px-1'
             },
             {
-                data: 'transactionAmount',
+                data: 'order_completed_date',
                 className: 'py-0 px-1'
             },
             {
-                data: 'eventName',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'ticketType',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'eventType',
-                className: 'py-0 px-1'
-            },
-            {
-                data: 'paymentMethod',
+                data: 'pay_method',
                 className: 'py-0 px-1'
             },
             //
@@ -140,4 +120,5 @@ $(function() {
         }
     });
 }
+load_data_events_orders();
 })

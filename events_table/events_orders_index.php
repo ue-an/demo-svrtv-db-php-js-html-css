@@ -22,24 +22,20 @@
                 <tr class="table-primary text-dark bg-gradient bg-opacity-150">
                     <th class="px-1 py-1 text-center">OrderNo</th>
                     <th class="px-1 py-1 text-center">ReceiptNo</th>
-                    <th class="px-1 py-1 text-center">EventID</th>
-                    <th class="px-1 py-1 text-center">TicketID</th>
                     <th class="px-1 py-1 text-center">OrderStatus</th>
-                    <th class="px-1 py-1 text-center">OrderCreated</th>
-                    <th class="px-1 py-1 text-center">OrderCompleted</th>
-                    <th class="px-1 py-1 text-center">PayMethod</th>
+                    <th class="px-1 py-1 text-center">OrderDate</th>
+                    <th class="px-1 py-1 text-center">CompletedDate</th>
+                    <th class="px-1 py-1 text-center">PaymentMethod</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr class="table-primary text-dark bg-gradient bg-opacity-150">
                     <th class="px-1 py-1 text-center">OrderNo</th>
                     <th class="px-1 py-1 text-center">ReceiptNo</th>
-                    <th class="px-1 py-1 text-center">EventID</th>
-                    <th class="px-1 py-1 text-center">TicketID</th>
                     <th class="px-1 py-1 text-center">OrderStatus</th>
-                    <th class="px-1 py-1 text-center">OrderCreated</th>
-                    <th class="px-1 py-1 text-center">OrderCompleted</th>
-                    <th class="px-1 py-1 text-center">PayMethod</th>
+                    <th class="px-1 py-1 text-center">OrderDate</th>
+                    <th class="px-1 py-1 text-center">CompletedDate</th>
+                    <th class="px-1 py-1 text-center">PaymentMethod</th>
                 </tr>
             </tfoot>
         </table>

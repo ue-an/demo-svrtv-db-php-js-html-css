@@ -8,17 +8,22 @@ if (!empty($search)) {
     $search_where = " where ";
     $search_where .= " order_no LIKE '%{$search['value']}%'";
     $search_where .= " OR receipt_no LIKE '%{$search['value']}%'";
-    $search_where .= " OR event_id LIKE '%{$search['value']}%";
-    $search_where .= " OR paymentMethod LIKE '%{$search['value']}%'";
+    $search_where .= " OR order_status LIKE '%{$search['value']}%";
+    $search_where .= " OR order_created_date LIKE '%{$search['value']}%";
+    $search_where .= " OR order_completed_date LIKE '%{$search['value']}%";
+    $search_where .= " OR pay_method LIKE '%{$search['value']}%'";
 }
 $columns_arr = array(
     "order_no",
     "receipt_no",
-    "paymentMethod",
+    "order_status",
+    "order_created_date",
+    "order_completed_date",
+    "pay_method",
 );
 
-$query = $conn->query("SELECT orderNo, receiptNo, events.userID, users.firstname, users.lastname, transactionDate, transactionAmount, eventName, ticketType, eventType, paymentMethod FROM events INNER JOIN users ON events.userID = users.userID {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
-$recordsFilterCount = $conn->query("SELECT orderNo, receiptNo, events.userID, users.firstname, users.lastname, transactionDate, transactionAmount, eventName, ticketType, eventType, paymentMethod FROM events INNER JOIN users ON events.userID = users.userID {$search_where}")->num_rows;
+$query = $conn->query("SELECT order_no, receipt_no, order_status, order_created_date, order_completed_date, pay_method FROM events_orders {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
+$recordsFilterCount = $conn->query("SELECT order_no, receipt_no, order_status, order_created_date, order_completed_date, pay_method FROM events_orders {$search_where}")->num_rows;
 $recordsTotal = $totalCount;
 $recordsFiltered = $recordsFilterCount;
 $data = array();
