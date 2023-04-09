@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2023 at 01:55 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Generation Time: Apr 09, 2023 at 02:23 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,21 +18,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `feastdb_copy`
+-- Database: `new-feastdb`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `events`
---
-
-CREATE TABLE `events` (
-  `user_id` varchar(17) NOT NULL,
-  `event_id` varchar(255) NOT NULL,
-  `event_name` varchar(255) NOT NULL,
-  `event_type` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -43,8 +30,6 @@ CREATE TABLE `events` (
 CREATE TABLE `events_orders` (
   `order_no` varchar(255) NOT NULL,
   `receipt_no` varchar(255) NOT NULL,
-  `event_id` varchar(255) NOT NULL,
-  `ticket_id` varchar(255) NOT NULL,
   `order_status` varchar(255) NOT NULL,
   `order_created_date` date NOT NULL,
   `order_completed_date` date NOT NULL,
@@ -59,9 +44,23 @@ CREATE TABLE `events_orders` (
 
 CREATE TABLE `events_ticket` (
   `ticket_id` varchar(255) NOT NULL,
+  `event_id` varchar(255) NOT NULL,
   `ticket_type` varchar(255) NOT NULL,
   `ticket_name` varchar(255) NOT NULL,
   `ticket_cost` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events_ticket_items`
+--
+
+CREATE TABLE `events_ticket_items` (
+  `order_no` varchar(255) NOT NULL,
+  `ticket_id` varchar(255) NOT NULL,
+  `user_id` varchar(17) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -120,22 +119,6 @@ CREATE TABLE `feastbook_transactions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `feastmearcyministries`
---
-
-CREATE TABLE `feastmearcyministries` (
-  `fmm_id` varchar(18) NOT NULL,
-  `user_id` varchar(17) NOT NULL,
-  `donor_type` varchar(255) NOT NULL,
-  `donation_start_date` date NOT NULL,
-  `donation_end_date` date NOT NULL,
-  `amount` float NOT NULL,
-  `pay_method` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `feastmedia`
 --
 
@@ -148,6 +131,22 @@ CREATE TABLE `feastmedia` (
   `ticket_cost` float NOT NULL,
   `no_of_tickets_bought` int(11) NOT NULL,
   `total_cost` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feastmercyministry`
+--
+
+CREATE TABLE `feastmercyministry` (
+  `fmm_id` varchar(18) NOT NULL,
+  `user_id` varchar(17) NOT NULL,
+  `donor_type` varchar(255) NOT NULL,
+  `donation_start_date` date NOT NULL,
+  `donation_end_date` date NOT NULL,
+  `amount` float NOT NULL,
+  `pay_method` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -232,17 +231,10 @@ INSERT INTO `users` (`user_id`, `email`, `last_name`, `first_name`, `mobile_no`,
 --
 
 --
--- Indexes for table `events`
---
-ALTER TABLE `events`
-  ADD PRIMARY KEY (`event_id`);
-
---
 -- Indexes for table `events_orders`
 --
 ALTER TABLE `events_orders`
-  ADD KEY `fk_eoideid` (`event_id`),
-  ADD KEY `fk_eoidetid` (`ticket_id`);
+  ADD PRIMARY KEY (`order_no`);
 
 --
 -- Indexes for table `events_ticket`
@@ -279,18 +271,18 @@ ALTER TABLE `feastbook_transactions`
   ADD KEY `fk_ftidpid` (`product_id`);
 
 --
--- Indexes for table `feastmearcyministries`
---
-ALTER TABLE `feastmearcyministries`
-  ADD PRIMARY KEY (`fmm_id`),
-  ADD KEY `FK_AidUid` (`user_id`);
-
---
 -- Indexes for table `feastmedia`
 --
 ALTER TABLE `feastmedia`
   ADD PRIMARY KEY (`feast_media_event_id`),
   ADD KEY `FK_FMidUid` (`user_id`);
+
+--
+-- Indexes for table `feastmercyministry`
+--
+ALTER TABLE `feastmercyministry`
+  ADD PRIMARY KEY (`fmm_id`),
+  ADD KEY `FK_AidUid` (`user_id`);
 
 --
 -- Indexes for table `feastph`
@@ -317,13 +309,6 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `events_orders`
---
-ALTER TABLE `events_orders`
-  ADD CONSTRAINT `fk_eoideid` FOREIGN KEY (`event_id`) REFERENCES `events` (`event_id`),
-  ADD CONSTRAINT `fk_eoidetid` FOREIGN KEY (`ticket_id`) REFERENCES `events_ticket` (`ticket_id`);
-
---
 -- Constraints for table `feastapp`
 --
 ALTER TABLE `feastapp`
@@ -338,16 +323,16 @@ ALTER TABLE `feastbook_transactions`
   ADD CONSTRAINT `fk_ftidpid` FOREIGN KEY (`product_id`) REFERENCES `feastbooks_products` (`product_id`);
 
 --
--- Constraints for table `feastmearcyministries`
---
-ALTER TABLE `feastmearcyministries`
-  ADD CONSTRAINT `FK_AidUid` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
-
---
 -- Constraints for table `feastmedia`
 --
 ALTER TABLE `feastmedia`
   ADD CONSTRAINT `FK_FMidUid` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Constraints for table `feastmercyministry`
+--
+ALTER TABLE `feastmercyministry`
+  ADD CONSTRAINT `FK_AidUid` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `feastph`
