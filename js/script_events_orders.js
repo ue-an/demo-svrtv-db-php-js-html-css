@@ -11,7 +11,7 @@ $(function() {
 
  //Load Data
  function load_data_events_orders() {
-    eventsTbl = $('#events-orders-tbl').DataTable({
+    eventsordersTbl = $('#events-orders-tbl').DataTable({
         dom: '<"row"B>flr<"py-2 my-2"t>ip',
         "processing": true,
         "serverSide": true,
@@ -108,7 +108,7 @@ $(function() {
             text: "Refresh",
             className: "btn btn-primary fw-bold py-0",
             action: function(e, dt, node, config) {
-                eventsTbl.draw(true);
+                eventsordersTbl.draw(true);
             }
         },
         ],

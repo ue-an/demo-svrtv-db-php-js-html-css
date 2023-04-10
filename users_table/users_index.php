@@ -1,6 +1,6 @@
 <div class="row scrolltable" id="row-userstable">
     <div class="col-lg-12">
-        <table class="table table-light table-hover table-bordered table-striped" id="authors-tbl">
+        <table class="table table-light table-hover table-bordered table-striped" id="users-tbl">
             <thead>
                 <tr class="table-primary text-dark bg-gradient bg-opacity-150">
                     <th class="px-1 py-1 text-center">UserID</th>

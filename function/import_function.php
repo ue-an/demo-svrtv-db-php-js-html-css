@@ -85,7 +85,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $orderStatus = $row['2'];
                         $startOrderDate = $row['3'];
                         $endOrderDate = $row['4'];
-                        $payMethod = ['5'];
+                        $payMethod = $row['5'];
 
                         $sql = "INSERT INTO events_orders (order_no, receipt_no, order_status, order_created_date, order_completed_date, pay_method) VALUES ( ?, ?, ?, ?, ?, ?)";
                         $stmt = mysqli_stmt_init($p_conn);
@@ -127,11 +127,68 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         if ($sql) {
                             $resp['status'] = 'success';
                         } else {
-                            $resp['status'] = 'failed';
+                            $resp['status'] = 'success';
                             $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
                         }
                     }
                 }
+                //events_tickets
+                if ($p_table === "events_ticket") {
+                    foreach ($sheetData as $row) {
+                        $ticketID = uniqid($p_idprefix);
+                        $eventID = $row['0'];
+                        $ticketType = $row['1'];
+                        $ticketName = $row['2'];
+                        $ticketCost = $row['3'];
+                        
+                        $sql = "INSERT INTO events_ticket (ticket_id, event_id, ticket_type, ticket_name, ticket_cost) VALUES ( ?, ?, ?, ?, ?)";
+                        $stmt = mysqli_stmt_init($p_conn);
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            exit();
+                        }
+                        mysqli_stmt_bind_param($stmt,"sssss",$ticketID, $eventID, $ticketType, $ticketName, $ticketCost);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        if ($sql) {
+                            $resp['status'] = 'success';
+                        } else {
+                            $resp['status'] = 'success';
+                            $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
+                        }
+                    }
+                }
+
+                /* FEAST MERCY MINISTRY (FMM) */
+                if ($p_table === "fmm") {
+                    foreach ($sheetData as $row) {
+                        $anawimID = uniqid($p_idprefix);
+                        $userID = strtolower($row['0']);
+                        $donorType = $row['1'];
+                        $donationStart = strtolower($row['2']);
+                        $donationEnd = strtolower($row['3']);
+                        $amount = strtolower($row['4']);
+                        $payMethod = strtolower($row['5']);
+                       
+                        // $anawim_exist = anawimExist($p_conn, $userID, $address);
+                        // if ($anawim_exist === false) {
+                            $sql = "INSERT INTO feastmercyministry (fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                            $stmt = mysqli_stmt_init($p_conn);
+                            if(!mysqli_stmt_prepare($stmt,$sql)){
+                                exit();
+                            }
+                            mysqli_stmt_bind_param($stmt,"sssssss",$anawimID, $userID, $donorType, $donationStart, $donationEnd, $amount, $payMethod);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                            if($sql){
+                                $resp['status'] = 'success';
+                            }
+                            echo json_encode($resp);
+                        // } else {
+                        //     $resp['status'] = 'success';
+                        // } 
+                    }
+                }
+                /* END OF FMM */
                 
                 /* FEASTAPP */
                 if ($p_table === 'feastapp') {

@@ -21,20 +21,20 @@ include 'header.php';
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEventOrders()">
                  <!-- <i class="fas fa-chart-line me-2"> </i>-->
                        Event Orders</button>
-                <!-- <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEventTickets()">
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEventTickets()">
                        Event Tickets</button>
-                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvents()">
-                       Events</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFMM()">
                        Feast Mercy Ministries</button>
-                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideHWR()">
+                <!--<button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideHWR()">
                        Holy Week Retreat</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastph()">
                        Feast PH</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastmedia()">
                        Feast Media</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastapp()">
-                       Feast App</button> -->
+                       Feast App</button>
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvents()">
+                       Events</button> -->
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -54,10 +54,9 @@ include 'header.php';
                 </div>
                 <?php
                 include 'users_table/users_index.php';
-                include 'events_table/events_index.php';
                 include 'events_table/events_orders_index.php';
-                // include 'events_table/events_ticket_index.php';
-                // include 'feastmercyministry_table/fmm_index.php';
+                include 'events_table/events_ticket_index.php';
+                include 'feastmercyministry_table/fmm_index.php';
                 // include 'feastph_table/feastph_index.php';
                 // include 'holyweek_retreat_table/holyweek_retreat_index.php';
                 // include 'feastmedia_table/feastmedia_index.php';
@@ -79,7 +78,7 @@ include 'header.php';
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                            <form action="" method="post" id="new-author-frm" name="new-author-frm" enctype="multipart/form-data">
+                            <form action="" method="post" id="new-user-frm" name="new-user-frm" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="file" class="control-label">Upload Excel File</label>
                                     <input type="file" name="file" id="file" class="form-control" required>
@@ -91,7 +90,7 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-author-frm">Import</button>
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-user-frm">Import</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -109,7 +108,7 @@ include 'header.php';
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form action="" id="edit-author-frm">
+                        <form action="" id="edit-user-frm">
                             <!-- email -->
                             <div class="form-group">
                                 <label class="control-label">Email</label>
@@ -181,7 +180,7 @@ include 'header.php';
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" form="edit-author-frm">Save</button>
+                    <button type="submit" class="btn btn-primary" form="edit-user-frm">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -197,14 +196,14 @@ include 'header.php';
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form action="" id="delete-author-frm">
+                        <form action="" id="delete-user-frm">
                             <input type="hidden" name="userID">
                             <p>Are you sure to delete <b><span id="name"></span></b> from the list?</p>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" form="delete-author-frm">Yes</button>
+                    <button type="submit" class="btn btn-danger" form="delete-user-frm">Yes</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
@@ -288,6 +287,35 @@ include 'header.php';
         </div>
     </div>
     <!-- /Delete Modal -->
+
+    <!-- EVENTS TICKETS MODALS -->
+    <!-- Upload/Import Modal -->
+    <div class="modal fade" id="add_modal_event_ticket" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Event Ticket Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                            <form action="" method="post" id="new-event-ticket-frm" name="new-event-ticket-frm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="file" class="control-label">Upload Excel File</label>
+                                    <input type="file" name="file-events-ticket" id="file-events-ticket" class="form-control" required>
+                                </div>
+                            </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-event-ticket-frm">Import</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload/Import Modal -->
+
     
 <?php
 include 'footer.php';

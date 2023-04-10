@@ -1,9 +1,9 @@
-var authorsTbl = '';
+var usersTbl = '';
 $(function() {
     // draw function [called if the database updates]
     function draw_data() {
-        if ($.fn.dataTable.isDataTable('#authors-tbl') && authorsTbl != '') {
-            authorsTbl.draw(true)
+        if ($.fn.dataTable.isDataTable('#users-tbl') && usersTbl != '') {
+            usersTbl.draw(true)
         } else {
             load_data();
         }
@@ -11,7 +11,7 @@ $(function() {
  
     //Load Data
     function load_data() {
-        authorsTbl = $('#authors-tbl').DataTable({
+        usersTbl = $('#users-tbl').DataTable({
             dom: '<"row"B>flr<"py-2 my-2"t>ip',
             "processing": true,
             "serverSide": true,
@@ -131,7 +131,7 @@ $(function() {
                 text: "Refresh",
                 className: "btn btn-primary fw-bold py-0",
                 action: function(e, dt, node, config) {
-                    authorsTbl.draw(true);
+                    usersTbl.draw(true);
                 }
             },
             //will add new button for single entry

@@ -45,7 +45,6 @@
 
         let tables = [
             user_table,
-            events_table,
             event_order_table,
             event_ticket_table,
             fmm_table,
@@ -53,6 +52,7 @@
             feastph_table,
             feastmedia_table,
             feastapp_table,
+            events_table,
         ];
 
         $(document).ready(function() {
@@ -82,11 +82,6 @@
         }
 
         //Event side menu
-        function openSideEvents() {
-            events_table.style.visibility = "visible";
-            events_table.style.display = "block";
-            closeAll(events_table.id);
-        }
         function openSideEventOrders() {
             event_order_table.style.visibility = "visible";
             event_order_table.style.display = "block";
@@ -127,6 +122,12 @@
             feastapp_table.style.visibility = "visible";
             feastapp_table.style.display = "block";
             closeAll(feastapp_table.id);
+        }
+
+        function openSideEvents() {
+            events_table.style.visibility = "visible";
+            events_table.style.display = "block";
+            closeAll(events_table.id);
         }
 
         
