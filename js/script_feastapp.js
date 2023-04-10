@@ -22,8 +22,12 @@ $(function() {
                 className: 'py-0 px-1'
             },
             {
-                data: 'user_id',
-                className: 'py-0 px-1'
+                targets: 2,
+                data: 'first_name',
+                className: 'py-0 px-1',
+                render: function ( data, type, row ) {
+                return row.first_name +' '+ row.last_name;
+                }
             },
             {
                 data: 'date_downloaded',

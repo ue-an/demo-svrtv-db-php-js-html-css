@@ -20,8 +20,8 @@
     <table class="table table-light table-hover table-bordered table-striped" id="fmm-tbl">
             <thead>
                 <tr class="table-primary text-dark bg-gradient bg-opacity-150">
-                    <th class="px-1 py-1 text-center">AnawimID</th>
-                    <th class="px-1 py-1 text-center">UserID</th>
+                    <th class="px-1 py-1 text-center">FMMID</th>
+                    <th class="px-1 py-1 text-center">Name</th>
                     <th class="px-1 py-1 text-center">DonorType</th>
                     <th class="px-1 py-1 text-center">StartDonationDate</th>
                     <th class="px-1 py-1 text-center">EndDonationDate</th>
@@ -31,8 +31,8 @@
             </thead>
             <tfoot>
                 <tr class="table-primary text-dark bg-gradient bg-opacity-150">
-                    <th class="px-1 py-1 text-center">AnawimID</th>
-                    <th class="px-1 py-1 text-center">UserID</th>
+                    <th class="px-1 py-1 text-center">FMMID</th>
+                    <th class="px-1 py-1 text-center">Name</th>
                     <th class="px-1 py-1 text-center">DonorType</th>
                     <th class="px-1 py-1 text-center">StartDonationDate</th>
                     <th class="px-1 py-1 text-center">EndDonationDate</th>

@@ -3,11 +3,11 @@
 require_once '../connect.php';
 require '../users_table/check_dup_users.php';
 require '../users_table/is_first_email.php';
-// require '../feastph_table/check_dup_feastph.php';
-// require '../feastmedia_table/check_dup_feastmedia.php';
-// require '../holyweek_retreat_table/check_dup_holyweek_retreat.php';
-// require '../feastmercyministry_table/check_dup_anawim.php';
-// require '../feastapp_table/check_dup_feastapp.php';
+require '../feastmercyministry_table/check_dup_fmm.php';
+require '../holyweek_retreat_table/check_dup_holyweek_retreat.php';
+require '../feastph_table/check_dup_feastph.php';
+require '../feastmedia_table/check_dup_feastmedia.php';
+require '../feastapp_table/check_dup_feastapp.php';
 require '../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -161,7 +161,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                 /* FEAST MERCY MINISTRY (FMM) */
                 if ($p_table === "fmm") {
                     foreach ($sheetData as $row) {
-                        $anawimID = uniqid($p_idprefix);
+                        $fmmID = uniqid($p_idprefix);
                         $userID = strtolower($row['0']);
                         $donorType = $row['1'];
                         $donationStart = strtolower($row['2']);
@@ -169,26 +169,115 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $amount = strtolower($row['4']);
                         $payMethod = strtolower($row['5']);
                        
-                        // $anawim_exist = anawimExist($p_conn, $userID, $address);
-                        // if ($anawim_exist === false) {
+                        $fmm_exist = fmmExist($p_conn, $userID, $address);
+                        if ($fmm_exist === false) {
                             $sql = "INSERT INTO feastmercyministry (fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method) VALUES (?, ?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
                             }
-                            mysqli_stmt_bind_param($stmt,"sssssss",$anawimID, $userID, $donorType, $donationStart, $donationEnd, $amount, $payMethod);
+                            mysqli_stmt_bind_param($stmt,"sssssss",$fmmID, $userID, $donorType, $donationStart, $donationEnd, $amount, $payMethod);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                             if($sql){
                                 $resp['status'] = 'success';
                             }
                             echo json_encode($resp);
-                        // } else {
-                        //     $resp['status'] = 'success';
-                        // } 
+                        } else {
+                            $resp['status'] = 'success';
+                        } 
                     }
                 }
                 /* END OF FMM */
+
+                /* HWR */
+                if ($p_table === "hwr") {
+                    foreach ($sheetData as $row) {
+                        $holyweekID = uniqid($p_idprefix);
+                        $userID = strtolower($row['0']);
+                        $eventDate = strtolower($row['1']);
+                       
+                        $hwr_exist = holyweekExist($p_conn, $userID);
+                        if ($hwr_exist === false) {
+                            $sql = "INSERT INTO holyweekretreat (hwr_id, user_id, event_date) VALUES (?, ?, ?)";
+                            $stmt = mysqli_stmt_init($p_conn);
+                            if(!mysqli_stmt_prepare($stmt,$sql)){
+                                exit();
+                            }
+                            mysqli_stmt_bind_param($stmt,"sss",$holyweekID, $userID, $eventDate);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                            if($sql){
+                                $resp['status'] = 'success';
+                            }
+                            echo json_encode($resp);
+                        } else {
+                            $resp['status'] = 'success';
+                        }
+                        
+                    }
+                }
+                /* END OF HWR */
+
+                /* FEASTPH */
+                if ($p_table === "feastph") {
+                    foreach ($sheetData as $row) {
+                        $feastphID = uniqid($p_idprefix);
+                        $userID = strtolower($row['0']);
+                        $fileName = strtolower($row['1']);
+                        $fileDownloadDate = strtolower($row['2']);
+                        $feastph_exist = feastphExist($p_conn, $userID);
+                        if ($feastph_exist === false) {
+                            $sql = "INSERT INTO feastph (feastph_id, user_id, file_name, file_download_date) VALUES (?, ?, ?, ?)";
+                            $stmt = mysqli_stmt_init($p_conn);
+                            if(!mysqli_stmt_prepare($stmt,$sql)){
+                                exit();
+                            }
+                            mysqli_stmt_bind_param($stmt,"ssss",$feastphID, $userID, $fileName, $fileDownloadDate);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                            if($sql){
+                                $resp['status'] = 'success';
+                            }
+                        } else {
+                            $resp['status'] = 'success';
+                        }
+                        echo json_encode($resp);
+                    }
+                }
+                 /* END OF FEASTPH */
+
+                 /* FEASTMEDIA */
+                 if ($p_table === "feastmedia") {
+                    foreach ($sheetData as $row) {
+                        $feastmediaID = uniqid($p_idprefix);
+                        $userID = strtolower($row['0']);
+                        $eventName = strtolower($row['1']);
+                        $ticketType = strtolower($row['2']);
+                        $eventType = strtolower($row['3']);
+                        $eventDate = strtolower($row['4']);
+                        $ticketCost = strtolower($row['5']);
+                       
+                        $feastmedia_exist = feastmediaExist($p_conn, $userID);
+                        if ($feastmedia_exist === false) {
+                            $sql = "INSERT INTO feastmedia (feast_media_event_id, user_id, event_name, ticket_type, event_type, event_date, ticket_cost) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                            $stmt = mysqli_stmt_init($p_conn);
+                            if(!mysqli_stmt_prepare($stmt,$sql)){
+                                exit();
+                            }
+                            mysqli_stmt_bind_param($stmt,"sssssss",$feastmediaID, $userID, $eventName, $ticketType, $eventType, $eventDate, $ticketCost);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                            if($sql){
+                                $resp['status'] = 'success';
+                            }
+                        } else {
+                            $resp['status'] = 'success';
+                        }
+                        echo json_encode($resp);
+                    }
+                 }
+                 /* END OF FEASTMEDIA */
                 
                 /* FEASTAPP */
                 if ($p_table === 'feastapp') {
@@ -197,7 +286,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $userID = strtolower($row['0']);
                         $downloadDate = $row['1']; //format: yyyy-mm-dd
                         $feastapp_exist = feastappExist($p_conn, $userID, $downloadDate);
-                        // if ($feastapp_exist === false) {
+                        if ($feastapp_exist === false) {
                             $sql = "INSERT INTO feastapp (feastapp_id, user_id, date_downloaded) VALUES (?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -209,10 +298,10 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                             if($sql){
                                 $resp['status'] = 'success';
                             }    
-                        // }
-                        // else {
-                        //     $resp['status'] = 'success';
-                        // }
+                        }
+                        else {
+                            $resp['status'] = 'success';
+                        }
                         echo json_encode($resp);
                     }
                  }

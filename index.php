@@ -25,7 +25,7 @@ include 'header.php';
                        Event Tickets</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFMM()">
                        Feast Mercy Ministries</button>
-                <!--<button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideHWR()">
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideHWR()">
                        Holy Week Retreat</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastph()">
                        Feast PH</button>
@@ -33,7 +33,7 @@ include 'header.php';
                        Feast Media</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastapp()">
                        Feast App</button>
-                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvents()">
+                <!--<button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvents()">
                        Events</button> -->
             </div>
         </div>
@@ -57,10 +57,10 @@ include 'header.php';
                 include 'events_table/events_orders_index.php';
                 include 'events_table/events_ticket_index.php';
                 include 'feastmercyministry_table/fmm_index.php';
-                // include 'feastph_table/feastph_index.php';
-                // include 'holyweek_retreat_table/holyweek_retreat_index.php';
-                // include 'feastmedia_table/feastmedia_index.php';
-                // include 'feastapp_table/feastapp_index.php';
+                include 'holyweek_retreat_table/holyweek_retreat_index.php';
+                include 'feastph_table/feastph_index.php';
+                include 'feastmedia_table/feastmedia_index.php';
+                include 'feastapp_table/feastapp_index.php';
                 ?>
             </div>
         </div>
@@ -316,6 +316,160 @@ include 'header.php';
     </div>
     <!-- /Upload/Import Modal -->
 
+    <!-- FMM MODALS -->
+    <!-- Upload/Import Modal -->
+    <div class="modal fade" id="add_modal_fmm" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Feast Mercy Ministry Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                            <form action="" method="post" id="new-fmm-frm" name="new-fmm-frm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="file" class="control-label">Upload Excel File</label>
+                                    <input type="file" name="file-fmm" id="file-fmm" class="form-control" required>
+                                </div>
+                                <!-- <div class="form-group" style="margin-top: 1rem;">
+                                    <button button type="submit" name="Import" id="submit" class="btn btn-success" value="upload" data-loading-text="Loading...">Upload</button>
+                                </div> -->
+                            </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-fmm-frm">Import</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload/Import Modal -->
+
+    <!-- HOLYWEEK RETREAT MODALS -->
+    <!-- Upload/Import Modal -->
+    <div class="modal fade" id="add_modal_hwr" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Holy Week Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                            <form action="" method="post" id="new-hwr-frm" name="new-holyweek-frm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="file" class="control-label">Upload Excel File</label>
+                                    <input type="file" name="file-hwr" id="file-hwr" class="form-control" required>
+                                </div>
+                                <!-- <div class="form-group" style="margin-top: 1rem;">
+                                    <button button type="submit" name="Import" id="submit" class="btn btn-success" value="upload" data-loading-text="Loading...">Upload</button>
+                                </div> -->
+                            </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-hwr-frm">Import</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload/Import Modal -->
+
+    <!-- FEASTPH MODALS -->
+    <!-- Upload/Import Modal -->
+    <div class="modal fade" id="add_modal_feastph" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Feast PH Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                            <form action="" method="post" id="new-feastph-frm" name="new-feastph-frm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="file" class="control-label">Upload Excel File</label>
+                                    <input type="file" name="file-feastph" id="file-feastph" class="form-control" required>
+                                </div>
+                                <!-- <div class="form-group" style="margin-top: 1rem;">
+                                    <button button type="submit" name="Import" id="submit" class="btn btn-success" value="upload" data-loading-text="Loading...">Upload</button>
+                                </div> -->
+                            </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-feastph-frm">Import</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload/Import Modal -->
+
+    <!-- FEASTMEDIA MODALS -->
+    <!-- Upload/Import Modal -->
+    <div class="modal fade" id="add_modal_feastmedia" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Feast Media Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                            <form action="" method="post" id="new-feastmedia-frm" name="new-feastmedia-frm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="file" class="control-label">Upload Excel File</label>
+                                    <input type="file" name="file-feastmedia" id="file-feastmedia" class="form-control" required>
+                                </div>
+                                <!-- <div class="form-group" style="margin-top: 1rem;">
+                                    <button button type="submit" name="Import" id="submit" class="btn btn-success" value="upload" data-loading-text="Loading...">Upload</button>
+                                </div> -->
+                            </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-feastmedia-frm">Import</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload/Import Modal -->
+
+    <!-- FEASTAPP MODALS -->
+    <!-- Upload/Import Modal -->
+    <div class="modal fade" id="add_modal_feastapp" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Import Feast App Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                            <form action="" method="post" id="new-feastapp-frm" name="new-feastapp-frm" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="file" class="control-label">Upload Excel File</label>
+                                    <input type="file" name="file-feastapp" id="file-feastapp" class="form-control" required>
+                                </div>
+                                <!-- <div class="form-group" style="margin-top: 1rem;">
+                                    <button button type="submit" name="Import" id="submit" class="btn btn-success" value="upload" data-loading-text="Loading...">Upload</button>
+                                </div> -->
+                            </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" name="submit" value="submit" class="btn btn-primary text-light" form="new-feastapp-frm">Import</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Upload/Import Modal -->
     
 <?php
 include 'footer.php';

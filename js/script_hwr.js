@@ -22,8 +22,12 @@ $(function() {
                 className: 'py-0 px-1'
             },
             {
-                data: 'user_id',
-                className: 'py-0 px-1'
+                targets: 2,
+                data: 'first_name',
+                className: 'py-0 px-1',
+                render: function ( data, type, row ) {
+                return row.first_name +' '+ row.last_name;
+                }
             },
             {
                 data: 'event_date',
@@ -37,7 +41,7 @@ $(function() {
             text: "Add Holy Week",
             className: "btn btn-primary fw-bold py-0",
             action: function(e, dt, node, config) {
-                $('#add_modal_holyweek').modal('show')
+                $('#add_modal_hwr').modal('show')
             }
         },
         {
@@ -60,16 +64,16 @@ $(function() {
 load_data_holyweek()
 
 //Saving new Data
-$('#new-holyweek-frm').submit(function(e) {
+$('#new-hwr-frm').submit(function(e) {
     e.preventDefault()
-    var file_data = $('#file-holyweek')[0].files[0];
+    var file_data = $('#file-hwr')[0].files[0];
     var form_data = new FormData();
-    form_data.append('#file-holyweek', file_data);
+    form_data.append('#file-hwr', file_data);
     if (file_data != undefined) {
-        $('#add_modal_holyweek button').attr('disabled', true)
-        $('#add_modal_holyweek button[form="new-holyweek-frm"]').text("importing ...")
+        $('#add_modal_hwr button').attr('disabled', true)
+        $('#add_modal_hwr button[form="new-hwr-frm"]').text("importing ...")
         $.ajax({  
-            url:"./holyweek_table/import_holyweek.php",  
+            url:"./holyweek_retreat_table/import_holyweek_retreat.php",  
             method:"POST",
             data:new FormData(this),  
             contentType:false,          // The content type used when sending data to the server.  
@@ -87,7 +91,7 @@ $('#new-holyweek-frm').submit(function(e) {
                             _el.hide()
                             _el.addClass('alert alert-primary alert_msg')
                             _el.text("Data successfully imported");
-                            $('#new-holyweek-frm').get(0).reset()
+                            $('#new-hwr-frm').get(0).reset()
                             $('.modal').modal('hide')
                             $('#msg').append(_el)
                             _el.show('slow')
@@ -97,9 +101,9 @@ $('#new-holyweek-frm').submit(function(e) {
                                     .remove()
                             }, 2500)
                 }
-                $('#add_modal_holyweek button').attr('disabled', false)
-                $('#add_modal_holyweek button[form="new-holyweek-frm"]').text("Import")
-                $('#add_modal_holyweek #file-holyweek').val('');
+                $('#add_modal_hwr button').attr('disabled', false)
+                $('#add_modal_hwr button[form="new-hwr-frm"]').text("Import")
+                $('#add_modal_hwr #file-hwr').val('');
             }
     })  
     }

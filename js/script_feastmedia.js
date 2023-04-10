@@ -22,8 +22,12 @@ $(function() {
                 className: 'py-0 px-1'
             },
             {
-                data: 'user_id',
-                className: 'py-0 px-1'
+                targets: 2,
+                data: 'first_name',
+                className: 'py-0 px-1',
+                render: function ( data, type, row ) {
+                return row.first_name +' '+ row.last_name;
+                }
             },
             {
                 data: 'event_name',
@@ -35,6 +39,10 @@ $(function() {
             },
             {
                 data: 'event_type',
+                className: 'py-0 px-1'
+            },
+            {
+                data: 'event_date',
                 className: 'py-0 px-1'
             },
             {
@@ -99,7 +107,7 @@ $('#new-feastmedia-frm').submit(function(e) {
                                     _el.hide()
                                     _el.addClass('alert alert-primary alert_msg')
                                     _el.text("Data successfully imported");
-                                    $('#new-author-frm').get(0).reset()
+                                    $('#new-feastmedia-frm').get(0).reset()
                                     $('.modal').modal('hide')
                                     $('#msg').append(_el)
                                     _el.show('slow')

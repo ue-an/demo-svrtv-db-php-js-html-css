@@ -1,6 +1,6 @@
 <?php
-function anawimExist($mysqli, $userID) {
- $sql = "SELECT * FROM anawim WHERE userID = ?";
+function fmmExist($mysqli, $userID) {
+ $sql = "SELECT * FROM feastmercyministry WHERE user_id = ?";
  $stmt = mysqli_stmt_init($mysqli);
  if (!mysqli_stmt_prepare($stmt, $sql)) {
   exit();

@@ -22,8 +22,12 @@ $(function() {
                     className: 'py-0 px-1'
                 },
                 {
-                    data: 'user_id',
-                    className: 'py-0 px-1'
+                    targets: 2,
+                    data: 'first_name',
+                    className: 'py-0 px-1',
+                    render: function ( data, type, row ) {
+                    return row.first_name +' '+ row.last_name;
+                    }
                 },
                 {
                     data: 'donor_type',
@@ -62,7 +66,7 @@ $(function() {
                 text: "Add Anawim",
                 className: "btn btn-primary fw-bold py-0",
                 action: function(e, dt, node, config) {
-                    $('#add_modal_anawim').modal('show')
+                    $('#add_modal_fmm').modal('show')
                 }
             },
             {
@@ -84,16 +88,16 @@ $(function() {
     //LoadData
     load_data_fmm()
     //Saving new Data
-    $('#new-anawim-frm').submit(function(e) {
+    $('#new-fmm-frm').submit(function(e) {
         e.preventDefault()
-        var file_data = $('#file-anawim')[0].files[0];
+        var file_data = $('#file-fmm')[0].files[0];
         var form_data = new FormData();
-        form_data.append('#file-anawim', file_data);
+        form_data.append('#file-fmm', file_data);
         if (file_data != undefined) {
-            $('#add_modal_anawim button').attr('disabled', true)
-            $('#add_modal_anawim button[form="new-anawim-frm"]').text("importing ...")
+            $('#add_modal_fmm button').attr('disabled', true)
+            $('#add_modal_fmm button[form="new-fmm-frm"]').text("importing ...")
             $.ajax({  
-                url:"./anawim_table/import_anawim.php",  
+                url:"./feastmercyministry_table/import_fmm.php",  
                 method:"POST",
                 data:new FormData(this),  
                 contentType:false,          // The content type used when sending data to the server.  
@@ -111,7 +115,7 @@ $(function() {
                         _el.hide()
                         _el.addClass('alert alert-primary alert_msg')
                         _el.text("Data successfully imported");
-                        $('#new-anawim-frm').get(0).reset();
+                        $('#new-fmm-frm').get(0).reset();
                         $('.modal').modal('hide')
                         $('#msg').append(_el)
                         _el.show('slow')
@@ -121,9 +125,9 @@ $(function() {
                             .remove()
                         }, 2500)
                     }
-                    $('#add_modal_anawim button').attr('disabled', false)
-                    $('#add_modal_anawim button[form="new-anawim-frm"]').text("Import")
-                    $('#add_modal_anawim #file-anawim').val('');
+                    $('#add_modal_fmm button').attr('disabled', false)
+                    $('#add_modal_fmm button[form="new-fmm-frm"]').text("Import")
+                    $('#add_modal_fmm #file-fmm').val('');
                 }
         })  
         }

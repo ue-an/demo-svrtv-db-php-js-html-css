@@ -8,7 +8,7 @@ $search_where = "";
 if(!empty($search)){
     $search_where = " where ";
     $search_where .= " fmm_id LIKE '%{$search['value']}%' ";
-    $search_where .= " OR user_id LIKE '%{$search['value']}%' ";
+    $search_where .= " OR first_name LIKE '%{$search['value']}%' ";
     $search_where .= " OR donor_type LIKE '%{$search['value']}%' ";
     $search_where .= " OR donation_start_date LIKE '%{$search['value']}%' ";
     $search_where .= " OR donation_end_date LIKE '%{$search['value']}%' ";
@@ -17,7 +17,7 @@ if(!empty($search)){
 }
 $columns_arr = array(
                      "fmm_id",
-                     "user_id",
+                     "first_name",
                      "donor_type",
                      "donation_start_date",
                      "donation_end_date",
@@ -25,11 +25,11 @@ $columns_arr = array(
                      "pay_method",
                     );
 // $query2 = $conn->query("SELECT * FROM `feastcon` {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start} ");
-$query = $conn->query("SELECT fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
+$query = $conn->query("SELECT fmm_id, users.first_name, users.last_name, donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry INNER JOIN users ON feastmercyministry.user_id = users.user_id {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
 // $query = $conn->query("SELECT feastconID, users.email, country, feastDistrict, ticketType, classAttended
 // FROM (feastcon
 // INNER JOIN users ON feastcon.userID = users.userID)");
-$recordsFilterCount = $conn->query("SELECT fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry {$search_where} ")->num_rows;
+$recordsFilterCount = $conn->query("SELECT fmm_id, coalesce(users.first_name,'')+' '+ coalesce(users.last_name,''), donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry INNER JOIN users ON feastmercyministry.user_id = users.user_id {$search_where} ")->num_rows;
  
 $recordsTotal= $totalCount;
 $recordsFiltered= $recordsFilterCount;
