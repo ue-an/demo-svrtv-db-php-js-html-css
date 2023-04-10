@@ -153,68 +153,68 @@ $(function() {
     }
     load_data()
     //Saving new Data (Single)
-    $('#new-sauthor-frm').submit(function(e) {
-        e.preventDefault()
-        $('#add_modal_single button').attr('disabled', true)
-        $('#add_modal_single button[form="new-author-single-frm"]').text("saving ...")
-        $.ajax({  
-            url:"./users_table/import_users.php",  
-            method:"POST",
-            data:new FormData(this),  
-            contentType:false,          // The content type used when sending data to the server.  
-            cache:false,                // To unable request pages to be cached  
-            processData:false,          // To send DOMDocument or non processed data file it is set to false 
-            error: err => {
-                alert("An error occured. Please check the source code and try again")
-            }, 
-            success: function(resp) {
-                let res = $.parseJSON(resp);
-                console.log(res);
-                if (!!res.status) {
-                    if (res.status == 'success') {
-                        var _el = $('<div>')
-                        _el.hide()
-                        _el.addClass('alert alert-primary alert_msg')
-                        _el.text("Data successfully added");
-                        $('#new-author-single-frm').get(0).reset()
-                        $('.modal').modal('hide')
-                        $('#msg').append(_el)
-                        _el.show('slow')
-                        draw_data();
-                        setTimeout(() => {
-                            _el.hide('slow')
-                                .remove()
-                        }, 2500)
-                    } else if (res.status == 'failed' && !!res.msg) {
-                        var _el = $('<div>')
-                        _el.hide()
-                        _el.addClass('alert alert-danger alert_msg form-group')
-                        _el.text(res.msg);
-                        $('#new-author-single-frm').append(_el)
-                        _el.show('slow')
-                    } else {
-                        alert("An error occured. Please check that the file selected isn't uploaded already.\nNo new record(s) found.");
+    // $('#new-sauthor-frm').submit(function(e) {
+    //     e.preventDefault()
+    //     $('#add_modal_single button').attr('disabled', true)
+    //     $('#add_modal_single button[form="new-author-single-frm"]').text("saving ...")
+    //     $.ajax({  
+    //         url:"./users_table/import_users.php",  
+    //         method:"POST",
+    //         data:new FormData(this),  
+    //         contentType:false,          // The content type used when sending data to the server.  
+    //         cache:false,                // To unable request pages to be cached  
+    //         processData:false,          // To send DOMDocument or non processed data file it is set to false 
+    //         error: err => {
+    //             alert("An error occured. Please check the source code and try again")
+    //         }, 
+    //         success: function(resp) {
+    //             let res = $.parseJSON(resp);
+    //             console.log(res);
+    //             if (!!res.status) {
+    //                 if (res.status == 'success') {
+    //                     var _el = $('<div>')
+    //                     _el.hide()
+    //                     _el.addClass('alert alert-primary alert_msg')
+    //                     _el.text("Data successfully added");
+    //                     $('#new-author-single-frm').get(0).reset()
+    //                     $('.modal').modal('hide')
+    //                     $('#msg').append(_el)
+    //                     _el.show('slow')
+    //                     draw_data();
+    //                     setTimeout(() => {
+    //                         _el.hide('slow')
+    //                             .remove()
+    //                     }, 2500)
+    //                 } else if (res.status == 'failed' && !!res.msg) {
+    //                     var _el = $('<div>')
+    //                     _el.hide()
+    //                     _el.addClass('alert alert-danger alert_msg form-group')
+    //                     _el.text(res.msg);
+    //                     $('#new-author-single-frm').append(_el)
+    //                     _el.show('slow')
+    //                 } else {
+    //                     alert("An error occured. Please check that the file selected isn't uploaded already.\nNo new record(s) found.");
                        
-                    }
-                } else {
-                    alert("An error occurred. Please check the source code and try again")
-                }
+    //                 }
+    //             } else {
+    //                 alert("An error occurred. Please check the source code and try again")
+    //             }
 
-                $('#add_modal_sauthor button').attr('disabled', false)
-                $('#add_modal_sauthor button[form="new-sauthor-frm"]').text("Import")
+    //             $('#add_modal_sauthor button').attr('disabled', false)
+    //             $('#add_modal_sauthor button[form="new-sauthor-frm"]').text("Import")
                 
-            }
-        })  
-    })
+    //         }
+    //     })  
+    // })
     //Saving new Data (Bulk)
-    $('#new-author-frm').submit(function(e) {
+    $('#new-user-frm').submit(function(e) {
             e.preventDefault()
             var file_data = $('#file')[0].files[0];
             var form_data = new FormData();
             form_data.append('#file', file_data);
             if (file_data != undefined) {
                 $('#add_modal button').attr('disabled', true)
-                $('#add_modal button[form="new-author-frm"]').text("importing ...")
+                $('#add_modal button[form="new-user-frm"]').text("importing ...")
                 $.ajax({  
                     url:"./users_table/import_users.php",  
                     method:"POST",
@@ -234,7 +234,7 @@ $(function() {
                                     _el.hide()
                                     _el.addClass('alert alert-primary alert_msg')
                                     _el.text("Data successfully imported");
-                                    $('#new-author-frm').get(0).reset()
+                                    $('#new-user-frm').get(0).reset()
                                     $('.modal').modal('hide')
                                     $('#msg').append(_el)
                                     _el.show('slow')
@@ -245,7 +245,7 @@ $(function() {
                                     }, 2500)
                         }
                         $('#add_modal button').attr('disabled', false)
-                        $('#add_modal button[form="new-author-frm"]').text("Import")
+                        $('#add_modal button[form="new-user-frm"]').text("Import")
                         $('#add_modal #file').val('');
                     }
                })  
@@ -253,10 +253,10 @@ $(function() {
             return false;
         })
         // Update Data
-    $('#edit-author-frm').submit(function(e) {
+    $('#edit-user-frm').submit(function(e) {
             e.preventDefault()
             $('#edit_modal button').attr('disabled', true)
-            $('#edit_modal button[form="edit-author-frm"]').text("saving ...")
+            $('#edit_modal button[form="edit-user-frm"]').text("saving ...")
             $.ajax({
                 url: './users_table/update_data.php',
                 data: $(this).serialize(),
@@ -264,6 +264,7 @@ $(function() {
                 dataType: "json",
                 error: err => {
                     alert("An error occured. Please check the source code and try again")
+                    $('#edit-user-frm').get(0).reset()
                 },
                 success: function(resp) {
                     if (!!resp.status) {
@@ -272,7 +273,7 @@ $(function() {
                             _el.hide()
                             _el.addClass('alert alert-primary alert_msg')
                             _el.text("Data successfully updated");
-                            $('#edit-author-frm').get(0).reset()
+                            $('#edit-user-frm').get(0).reset()
                             $('.modal').modal('hide')
                             $('#msg').append(_el)
                             _el.show('slow')
@@ -286,25 +287,28 @@ $(function() {
                             _el.hide()
                             _el.addClass('alert alert-danger alert_msg form-group')
                             _el.text(resp.msg);
-                            $('#edit-author-frm').append(_el)
+                            $('#edit-user-frm').append(_el)
                             _el.show('slow')
                         } else {
                             alert("An error occured. Please check the source code and try again")
+                            $('#edit-user-frm').get(0).reset()
                         }
                     } else {
                         alert("An error occurred. Please check the source code and try again")
+                        $('#edit-user-frm').get(0).reset()
                     }
  
                     $('#edit_modal button').attr('disabled', false)
-                    $('#edit_modal button[form="edit-author-frm"]').text("Save")
+                    $('#edit_modal button[form="edit-user-frm"]').text("Save")
+                    $('#edit-user-frm').get(0).reset()
                 }
             })
         })
         // DELETE Data
-    $('#delete-author-frm').submit(function(e) {
+    $('#delete-user-frm').submit(function(e) {
         e.preventDefault()
         $('#delete_modal button').attr('disabled', true)
-        $('#delete_modal button[form="delete-author-frm"]').text("deleting data ...")
+        $('#delete_modal button[form="delete-user-frm"]').text("deleting data ...")
         $.ajax({
             url: './users_table/delete_data.php',
             data: $(this).serialize(),
@@ -312,6 +316,7 @@ $(function() {
             dataType: "json",
             error: err => {
                 alert("An error occured. Please check the source code and try again")
+                $('#delete-user-frm').get(0).reset()
             },
             success: function(resp) {
                 if (!!resp.status) {
@@ -320,7 +325,7 @@ $(function() {
                         _el.hide()
                         _el.addClass('alert alert-primary alert_msg')
                         _el.text("Data successfully deleted");
-                        $('#delete-author-frm').get(0).reset()
+                        $('#delete-user-frm').get(0).reset()
                         $('.modal').modal('hide')
                         $('#msg').append(_el)
                         _el.show('slow')
@@ -334,17 +339,20 @@ $(function() {
                         _el.hide()
                         _el.addClass('alert alert-danger alert_msg form-group')
                         _el.text(resp.msg);
-                        $('#delete-author-frm').append(_el)
+                        $('#delete-user-frm').append(_el)
                         _el.show('slow')
                     } else {
                         alert("An error occured. Please check the source code and try again")
+                        $('#delete-user-frm').get(0).reset()
                     }
                 } else {
                     alert("An error occurred. Please check the source code and try again")
+                    $('#delete-user-frm').get(0).reset()
                 }
  
                 $('#delete_modal button').attr('disabled', false)
-                $('#delete_modal button[form="delete-author-frm"]').text("YEs")
+                $('#delete_modal button[form="delete-user-frm"]').text("YEs")
+                $('#delete-user-frm').get(0).reset()
             }
         })
     })

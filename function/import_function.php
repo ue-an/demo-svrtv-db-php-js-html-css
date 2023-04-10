@@ -3,6 +3,7 @@
 require_once '../connect.php';
 require '../users_table/check_dup_users.php';
 require '../users_table/is_first_email.php';
+require '../events_table/check_dup_events_orders.php';
 require '../feastmercyministry_table/check_dup_fmm.php';
 require '../holyweek_retreat_table/check_dup_holyweek_retreat.php';
 require '../feastph_table/check_dup_feastph.php';
@@ -87,49 +88,56 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $endOrderDate = $row['4'];
                         $payMethod = $row['5'];
 
-                        $sql = "INSERT INTO events_orders (order_no, receipt_no, order_status, order_created_date, order_completed_date, pay_method) VALUES ( ?, ?, ?, ?, ?, ?)";
-                        $stmt = mysqli_stmt_init($p_conn);
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            exit();
-                        }
-                        //check if receiptno is null
-                        if (is_null($receiptno_init) && is_null($orderno_init)) {    
-                            $orderNo = uniqid("ordno-gen-");
-                            $receiptNo = uniqid("rcptno-gen-");
-                            mysqli_stmt_bind_param($stmt,"ssssss",$orderNo, $receiptNo, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
-                            mysqli_stmt_execute($stmt);
-                            mysqli_stmt_close($stmt);
-                        }
-                        if (is_null($receiptno_init) || is_null($orderno_init)) {
-                            if (is_null($orderno_init)) {
+                        $eventsOrders_exist = eventsOrdersExist($p_conn, $orderno_init, $receiptno_init);
+                        if ($eventsOrders_exist === false) {
+                            $sql = "INSERT INTO events_orders (order_no, receipt_no, order_status, order_created_date, order_completed_date, pay_method) VALUES ( ?, ?, ?, ?, ?, ?)";
+                            $stmt = mysqli_stmt_init($p_conn);
+                            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                                exit();
+                            }
+                            //both is null
+                            if (is_null($receiptno_init) && is_null($orderno_init)) {    
                                 $orderNo = uniqid("ordno-gen-");
-                                mysqli_stmt_bind_param($stmt,"ssssss",$orderNo, $receiptno_init, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
-                                mysqli_stmt_execute($stmt);
-                                mysqli_stmt_close($stmt);
-                            }
-                            if (is_null($receiptno_init)) {
                                 $receiptNo = uniqid("rcptno-gen-");
-                                mysqli_stmt_bind_param($stmt,"ssssss",$orderno_init, $receiptNo, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
+                                mysqli_stmt_bind_param($stmt,"ssssss",$orderNo, $receiptNo, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
                                 mysqli_stmt_execute($stmt);
-                                mysqli_stmt_close($stmt);
+                                // mysqli_stmt_close($stmt);
                             }
-                        }
-                        if ($orderno_init !== "" && $receiptno_init !== "") {
-                            mysqli_stmt_bind_param($stmt,"ssssss",$orderno_init, $receiptno_init, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
-                            mysqli_stmt_execute($stmt);
-                            mysqli_stmt_close($stmt);
-                        }
 
-                        //check if orderno is null
-                        // mysqli_stmt_bind_param($stmt,"sssssssss",$orderno_init, $receiptno_init, $userID, $transactionDate, $transactionAmount, $eventName, $ticketType, $eventType, $paymentMethod);
-                        // mysqli_stmt_execute($stmt);
-                        // mysqli_stmt_close($stmt);
-                        if ($sql) {
-                            $resp['status'] = 'success';
+                            //one is null
+                            if (is_null($receiptno_init) || is_null($orderno_init)) {
+                                if (is_null($orderno_init)) {
+                                    $orderNo = uniqid("ordno-gen-");
+                                    mysqli_stmt_bind_param($stmt,"ssssss",$orderNo, $receiptno_init, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
+                                    mysqli_stmt_execute($stmt);
+                                    // mysqli_stmt_close($stmt);
+                                }
+                                if (is_null($receiptno_init)) {
+                                    $receiptNo = uniqid("rcptno-gen-");
+                                    mysqli_stmt_bind_param($stmt,"ssssss",$orderno_init, $receiptNo, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
+                                    mysqli_stmt_execute($stmt);
+                                    // mysqli_stmt_close($stmt);
+                                }
+                            }
+
+                            //both not null
+                            if ($orderno_init !== "" && $receiptno_init !== "") {
+                                mysqli_stmt_bind_param($stmt,"ssssss",$orderno_init, $receiptno_init, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
+                                mysqli_stmt_execute($stmt);
+                                // mysqli_stmt_close($stmt);
+                            }
+
+                            //check if orderno is null
+                            // mysqli_stmt_bind_param($stmt,"ssssss",$orderno_init, $receiptno_init, $orderStatus, $startOrderDate, $endOrderDate, $payMethod);
+                            // mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                            if($sql){
+                                $resp['status'] = 'success';
+                            }
+                            echo json_encode($resp);
                         } else {
                             $resp['status'] = 'success';
-                            $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
-                        }
+                        }   
                     }
                 }
                 //events_tickets

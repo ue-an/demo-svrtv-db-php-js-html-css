@@ -109,6 +109,7 @@ include 'header.php';
                 <div class="modal-body">
                     <div class="container-fluid">
                         <form action="" id="edit-user-frm">
+                            <input name="user_id">
                             <!-- email -->
                             <div class="form-group">
                                 <label class="control-label">Email</label>
@@ -127,7 +128,7 @@ include 'header.php';
                             <!-- mobile number -->
                             <div class="form-group">
                                 <label class="control-label">Mobile Number</label>
-                                <input type="text" class="form-control rounded-0" id="mobileno" name="mobile_no" required>
+                                <input type="text" class="form-control rounded-0" id="mobileno" name="mobile_no">
                             </div>
                             <!-- main email (deliverable) -->
                             <div class="form-group">
@@ -141,41 +142,7 @@ include 'header.php';
                                 </select>
                                 
                             </div>
-                            <!-- feast attendee -->
-                            <div class="form-group">
-                                <label class="control-label">Feast Attendee</label>
-                                <!-- <input type="text" class="form-control rounded-0" id="isMain" name="isMain" required> -->
-                                <br>
-                                <select name="isFeastAttendee" id="isFeastAttendee">
-                                    <option value="TRUE">TRUE</option>
-                                    <option value="FALSE">FALSE</option>
-                                </select>
-                            </div>
-                            <!-- feast name -->
-                            <div class="form-group">
-                                <label class="control-label">Feast Name</label>
-                                <input type="text" class="form-control rounded-0" id="feastName" name="feastName" required>
-                            </div>
-                            <!-- district -->
-                            <div class="form-group">
-                                <label class="control-label">District</label>
-                                <input type="text" class="form-control rounded-0" id="district" name="district" required>
-                            </div>
-                            <!-- address -->
-                            <div class="form-group">
-                                <label class="control-label">Adress</label>
-                                <input type="text" class="form-control rounded-0" id="address" name="address" required>
-                            </div>
-                            <!-- city -->
-                            <div class="form-group">
-                                <label class="control-label">City</label>
-                                <input type="text" class="form-control rounded-0" id="city" name="city" required>
-                            </div>
-                            <!-- country -->
-                            <div class="form-group">
-                                <label class="control-label">Country</label>
-                                <input type="text" class="form-control rounded-0" id="country" name="country" required>
-                            </div>
+                            
                         </form>
                     </div>
                 </div>
@@ -198,7 +165,7 @@ include 'header.php';
                     <div class="container-fluid">
                         <form action="" id="delete-user-frm">
                             <input type="hidden" name="userID">
-                            <p>Are you sure to delete <b><span id="name"></span></b> from the list?</p>
+                            <p>Are you sure to delete from the list?</p>
                         </form>
                     </div>
                 </div>
