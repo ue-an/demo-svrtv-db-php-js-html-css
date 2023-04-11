@@ -33,6 +33,8 @@ include 'header.php';
                        Feast Media</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastapp()">
                        Feast App</button>
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastbookProducts()">
+                       Feastbook Products</button>
                 <!--<button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvents()">
                        Events</button> -->
             </div>
@@ -683,7 +685,7 @@ include 'header.php';
                 <div class="modal-body">
                     <div class="container-fluid">
                         <form action="" id="edit-feastmedia-frm">
-                            <input name="feastmedia_event_id">
+                            <input name="feast_media_event_id">
                             <input name="user_id">
                             <!-- event name -->
                             <div class="form-group">
@@ -775,7 +777,58 @@ include 'header.php';
         </div>
     </div>
     <!-- /Upload/Import Modal -->
-    
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit_modal_feastapp" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Feast App</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="edit-feastapp-frm">
+                            <input name="feastapp_id">
+                            <input name="user_id">
+                            <!-- download date -->
+                            <div class="form-group">
+                                <label class="control-label">Date Downloaded</label>
+                                <input type="text" class="form-control rounded-0" name="date_downloaded" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="edit-feastapp-frm">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Modal -->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete_modal_feastapp" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="delete-feastapp-frm">
+                            <input name="feastappID" >
+                            <p>Are you sure to delete <b><span ></span></b> from the list?</p>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" form="delete-feastapp-frm">Yes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
 <?php
 include 'footer.php';
 ?>

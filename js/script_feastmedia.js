@@ -55,7 +55,7 @@ $(function() {
                 className: 'text-center py-0 px-1',
                 render: function(data, type, row, meta) {
                     console.log()
-                    return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_feastmedia btn-primary" href="javascript:void(0)" data-id="' + (row.feastmedia_event_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_feastmedia btn-danger" href="javascript:void(0)" data-id="' + (row.feastmedia_event_id) + '">Delete</a>';
+                    return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_feastmedia btn-primary" href="javascript:void(0)" data-id="' + (row.feast_media_event_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_feastmedia btn-danger" href="javascript:void(0)" data-id="' + (row.feast_media_event_id) + '">Delete</a>';
                 }
             }
         ],
@@ -69,7 +69,8 @@ $(function() {
                     error: err => {
                         alert("An error occured while fetching single data")
                     },
-                    success: function(resp) {
+                    success: function (resp) {
+                        // alert(resp.data);
                         if (!!resp.status) {
                             Object.keys(resp.data).map(k => {
                                 if ($('#edit_modal_feastmedia').find('input[name="' + k + '"]').length > 0)
@@ -93,7 +94,7 @@ $(function() {
                     },
                     success: function(resp) {
                         if (!!resp.status) {
-                            $('#delete_modal_feastmedia').find('input[name="feastmediaID"]').val(resp.data['feastmedia_event_id'])
+                            $('#delete_modal_feastmedia').find('input[name="feastmediaID"]').val(resp.data['feast_media_event_id'])
                             $('#delete_modal_feastmedia').modal('show')
                         } else {
                             alert("An error occured while fetching single data")

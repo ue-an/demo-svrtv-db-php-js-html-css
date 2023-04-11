@@ -33,9 +33,58 @@ $(function() {
                 data: 'date_downloaded',
                 className: 'py-0 px-1'
             },
+            {
+                data: null,
+                orderable: false,
+                className: 'text-center py-0 px-1',
+                render: function(data, type, row, meta) {
+                    console.log()
+                    return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_feastapp btn-primary" href="javascript:void(0)" data-id="' + (row.feastapp_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_feastapp btn-danger" href="javascript:void(0)" data-id="' + (row.feastapp_id) + '">Delete</a>';
+                }
+            }
         ],
         drawCallback: function(settings) {
-            
+            $('.edit_data_feastapp').click(function() {
+                $.ajax({
+                    url: './feastapp_table/get_single_feastapp.php',
+                    data: { feastappID: $(this).attr('data-id') },
+                    method: 'POST',
+                    dataType: 'json',
+                    error: err => {
+                        alert("An error occured while fetching single data")
+                    },
+                    success: function(resp) {
+                        if (!!resp.status) {
+                            Object.keys(resp.data).map(k => {
+                                if ($('#edit_modal_feastapp').find('input[name="' + k + '"]').length > 0)
+                                    $('#edit_modal_feastapp').find('input[name="' + k + '"]').val(resp.data[k])
+                            })
+                            $('#edit_modal_feastapp').modal('show')
+                        } else {
+                            alert("An error occured while fetching single data")
+                        }
+                    }
+                })
+            })
+            $('.delete_data_feastapp').click(function() {
+                $.ajax({
+                    url: './feastapp_table/get_single_feastapp.php',
+                    data: { feastappID: $(this).attr('data-id') },
+                    method: 'POST',
+                    dataType: 'json',
+                    error: err => {
+                        alert("An error occured while fetching single data")
+                    },
+                    success: function(resp) {
+                        if (!!resp.status) {
+                            $('#delete_modal_feastapp').find('input[name="feastappID"]').val(resp.data['feastapp_id'])
+                            $('#delete_modal_feastapp').modal('show')
+                        } else {
+                            alert("An error occured while fetching single data")
+                        }
+                    }
+                })
+            })
         },
         buttons: [{
             text: "Add Feast App",
@@ -107,4 +156,108 @@ $('#new-feastapp-frm').submit(function(e) {
     }
     return false;
 })
+// Update Data
+$('#edit-feastapp-frm').submit(function(e) {
+    e.preventDefault()
+    $('#edit_modal_feastapp button').attr('disabled', true)
+    $('#edit_modal_feastapp button[form="edit-feastapp-frm"]').text("saving ...")
+    $.ajax({
+        url: './feastapp_table/update_data_feastapp.php',
+        data: $(this).serialize(),
+        method: 'POST',
+        dataType: "json",
+        error: err => {
+            alert("An error occured. Please check the source code and try again")
+            $('#edit-feastapp-frm').get(0).reset()
+        },
+        success: function(resp) {
+            if (!!resp.status) {
+                if (resp.status == 'success') {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-primary alert_msg')
+                    _el.text("Data successfully updated");
+                    $('#edit-feastapp-frm').get(0).reset()
+                    $('.modal').modal('hide')
+                    $('#msg').append(_el)
+                    _el.show('slow')
+                    draw_data();
+                    setTimeout(() => {
+                        _el.hide('slow')
+                            .remove()
+                    }, 2500)
+                } else if (resp.status == 'success' && !!resp.msg) {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-danger alert_msg form-group')
+                    _el.text(resp.msg);
+                    $('#edit-feastapp-frm').append(_el)
+                    _el.show('slow')
+                } else {
+                    alert("An error occured. Please check the source code and try again")
+                    $('#edit-feastapp-frm').get(0).reset()
+                }
+            } else {
+                alert("An error occurred. Please check the source code and try again")
+                $('#edit-feastapp-frm').get(0).reset()
+            }
+
+            $('#edit_modal_feastapp button').attr('disabled', false)
+            $('#edit_modal_feastapp button[form="edit-feastapp-frm"]').text("Save")
+            $('#edit-feastapp-frm').get(0).reset()
+        }
+    })
 })
+// DELETE Data
+$('#delete-feastapp-frm').submit(function(e) {
+    e.preventDefault()
+    $('#delete_modal_feastapp button').attr('disabled', true)
+    $('#delete_modal_feastapp button[form="delete-feastapp-frm"]').text("deleting data ...")
+    $.ajax({
+        url: './feastapp_table/delete_data_feastapp.php',
+        data: $(this).serialize(),
+        method: 'POST',
+        dataType: "json",
+        error: err => {
+            alert("An error occured. Please check the source code and try again")
+            $('#delete-feastapp-frm').get(0).reset()
+        },
+        success: function(resp) {
+            if (!!resp.status) {
+                if (resp.status == 'success') {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-primary alert_msg')
+                    _el.text("Data successfully deleted");
+                    $('#delete-feastapp-frm').get(0).reset()
+                    $('.modal').modal('hide')
+                    $('#msg').append(_el)
+                    _el.show('slow')
+                    draw_data();
+                    setTimeout(() => {
+                        _el.hide('slow')
+                            .remove()
+                    }, 2500)
+                } else if (resp.status == 'success' && !!resp.msg) {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-danger alert_msg form-group')
+                    _el.text(resp.msg);
+                    $('#delete-feastapp-frm').append(_el)
+                    _el.show('slow')
+                } else {
+                    alert("An error occured. Please check the source code and try again")
+                    $('#delete-feastapp-frm').get(0).reset()
+                }
+            } else {
+                alert("An error occurred. Please check the source code and try again")
+                $('#delete-feastapp-frm').get(0).reset()
+            }
+
+            $('#delete_modal_feastapp button').attr('disabled', false)
+            $('#delete_modal_feastapp button[form="delete-feastapp-frm"]').text("YEs")
+            $('#delete-feastapp-frm').get(0).reset()
+        }
+    })
+})
+});
