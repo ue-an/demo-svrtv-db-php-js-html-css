@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$query = $conn->query("SELECT * FROM `events_ticket` where ticket_id = '{$ticketID}'");
+$query = $conn->query("SELECT * FROM `feastph` where feastph_id = '{$feastphID}'");
 if($query){
     $resp['status'] = 'success';
     $resp['data'] = $query->fetch_array();

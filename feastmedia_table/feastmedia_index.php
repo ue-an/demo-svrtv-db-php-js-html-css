@@ -10,6 +10,7 @@
                     <th class="px-1 py-1 text-center">EventType</th>
                     <th class="px-1 py-1 text-center">EventDate</th>
                     <th class="px-1 py-1 text-center">TicketCost</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </thead>
             <tfoot>
@@ -21,6 +22,7 @@
                     <th class="px-1 py-1 text-center">EventType</th>
                     <th class="px-1 py-1 text-center">EventDate</th>
                     <th class="px-1 py-1 text-center">TicketCost</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </tfoot>
         </table>

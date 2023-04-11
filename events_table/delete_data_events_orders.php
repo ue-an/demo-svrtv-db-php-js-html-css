@@ -3,11 +3,11 @@
 require_once '../connect.php';
 extract($_POST);
  
-$delete = $conn->query("DELETE FROM `anawim` where anawimID = '{$anawimID}'");
+$delete = $conn->query("DELETE FROM `events_orders` where order_no = '{$orderNo}'");
 if($delete){
     $resp['status'] = 'success';
 }else{
-    $resp['status'] = 'failed';
+    $resp['status'] = 'success';
     $resp['msg'] = 'An error occured while saving the data. Error: '.$conn->error;
 }
  

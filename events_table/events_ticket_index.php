@@ -8,6 +8,7 @@
                     <th class="px-1 py-1 text-center">TicketType</th>
                     <th class="px-1 py-1 text-center">TicketName</th>
                     <th class="px-1 py-1 text-center">TicketCost</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </thead>
             <tfoot>
@@ -17,6 +18,7 @@
                     <th class="px-1 py-1 text-center">TicketType</th>
                     <th class="px-1 py-1 text-center">TicketName</th>
                     <th class="px-1 py-1 text-center">TicketCost</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </tfoot>
         </table>

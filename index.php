@@ -109,7 +109,7 @@ include 'header.php';
                 <div class="modal-body">
                     <div class="container-fluid">
                         <form action="" id="edit-user-frm">
-                            <input name="user_id">
+                            <input type="hidden" name="user_id">
                             <!-- email -->
                             <div class="form-group">
                                 <label class="control-label">Email</label>
@@ -136,11 +136,12 @@ include 'header.php';
                                 <!-- <input type="text" class="form-control rounded-0" id="isMain" name="isMain" required> -->
                                 <br>
 
-                                <select name="is_bonafied" id="isBonafied">
-                                    <option value="TRUE">TRUE</option>
-                                    <option value="FALSE">FALSE</option>    
+                                <input type="hidden" name='is_bonafied' id="bonafied">
+                                <select name="" class="form-control" onchange="dropDownBonafied(event)">
+                                    <option disabled selected hidden>Change..</option>
+                                    <option value=0>TRUE</option>
+                                    <option value=1>FALSE</option>    
                                 </select>
-                                
                             </div>
                             
                         </form>
@@ -206,24 +207,43 @@ include 'header.php';
     </div>
     <!-- /Upload/Import Modal -->
     <!-- Edit Modal -->
-    <div class="modal fade" id="edit_modal_events" data-bs-backdrop="static">
+    <div class="modal fade" id="edit_modal_event_order" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"> Event</h5>
+                    <h5 class="modal-title"> Event Order</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form action="" id="edit-events-frm">
-                            <input type="hidden" name="orderID">
-                            <input type="hidden" name="receiptID">
-                            <input name="userID" disabled>
+                        <form action="" id="edit-event-order-frm">
+                            <input name="order_no">
+                            <input name="receipt_no">
+                            <!-- order status -->
+                            <div class="form-group">
+                                <label class="control-label">Order Status</label>
+                                <input type="text" class="form-control rounded-0" name="order_status" required>
+                            </div>
+                            <!-- Order Created Date -->
+                            <div class="form-group">
+                                <label class="control-label">Order Created Date</label>
+                                <input type="text" class="form-control rounded-0" name="order_created_date" required>
+                            </div>
+                            <!-- Order Completed Date -->
+                            <div class="form-group">
+                                <label class="control-label">Order Completed Date</label>
+                                <input type="text" class="form-control rounded-0" name="order_completed_date" required>
+                            </div>
+                            <!-- Pay Method -->
+                            <div class="form-group">
+                                <label class="control-label">Pay Method</label>
+                                <input type="text" class="form-control rounded-0" name="pay_method" required>
+                            </div>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" form="edit-eventsrm">Save</button>
+                    <button type="submit" class="btn btn-primary" form="edit-event-order-frm">Save</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -231,7 +251,7 @@ include 'header.php';
     </div>
     <!-- /Edit Modal -->
     <!-- Delete Modal -->
-    <div class="modal fade" id="delete_modal_events" data-bs-backdrop="static">
+    <div class="modal fade" id="delete_modal_event_order" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -239,15 +259,14 @@ include 'header.php';
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form action="" id="delete-event-frm">
-                            <input type="hidden" name="orderID">
-                            <input type="hidden" name="receiptID">
+                        <form action="" id="delete-event-order-frm">
+                            <input name="orderNo">
                             <p>Are you sure to delete <b><span ></span></b> from the list?</p>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" form="delete-events-frm">Yes</button>
+                    <button type="submit" class="btn btn-danger" form="delete-event-order-frm">Yes</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
                 </div>
             </div>
@@ -282,6 +301,72 @@ include 'header.php';
         </div>
     </div>
     <!-- /Upload/Import Modal -->
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit_modal_event_ticket" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Event Ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="edit-event-ticket-frm">
+                            <input name="ticket_id">
+                            <!-- event id -->
+                            <div class="form-group">
+                                <label class="control-label">Event ID</label>
+                                <input type="text" class="form-control rounded-0" name="event_id" required>
+                            </div>
+                            <!-- ticket type -->
+                            <div class="form-group">
+                                <label class="control-label">Ticket Type</label>
+                                <input type="text" class="form-control rounded-0" name="ticket_type" required>
+                            </div>
+                            <!-- ticket name -->
+                            <div class="form-group">
+                                <label class="control-label">Ticket Name</label>
+                                <input type="text" class="form-control rounded-0" name="ticket_name" required>
+                            </div>
+                            <!-- ticket cost -->
+                            <div class="form-group">
+                                <label class="control-label">Ticket Cost</label>
+                                <input type="text" class="form-control rounded-0" name="ticket_cost" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="edit-event-ticket-frm">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Modal -->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete_modal_event_ticket" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="delete-event-ticket-frm">
+                            <input name="ticketID">
+                            <p>Are you sure to delete <b><span ></span></b> from the list?</p>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" form="delete-event-ticket-frm">Yes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
 
     <!-- FMM MODALS -->
     <!-- Upload/Import Modal -->
@@ -313,6 +398,78 @@ include 'header.php';
         </div>
     </div>
     <!-- /Upload/Import Modal -->
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit_modal_fmm" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Feast Mercy Ministry</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="edit-fmm-frm">
+                            <input name="fmm_id">
+                            <input name="user_id">
+                            <!-- donor type -->
+                            <div class="form-group">
+                                <label class="control-label">Donor Type</label>
+                                <input type="text" class="form-control rounded-0" name="donor_type" required>
+                            </div>
+                            <!-- donation start -->
+                            <div class="form-group">
+                                <label class="control-label">Donation Start Date</label>
+                                <input type="text" class="form-control rounded-0" name="donation_start_date" required>
+                            </div>
+                            <!-- donation end -->
+                            <div class="form-group">
+                                <label class="control-label">Donation End Date</label>
+                                <input type="text" class="form-control rounded-0" name="donation_end_date" required>
+                            </div>
+                            <!-- amount -->
+                            <div class="form-group">
+                                <label class="control-label">Amount</label>
+                                <input type="text" class="form-control rounded-0" name="amount" required>
+                            </div>
+                            <!-- pay method -->
+                            <div class="form-group">
+                                <label class="control-label">Pay Method</label>
+                                <input type="text" class="form-control rounded-0" name="pay_method" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="edit-fmm-frm">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Modal -->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete_modal_fmm" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="delete-fmm-frm">
+                            <input name="fmmID" >
+                            <p>Are you sure to delete <b><span ></span></b> from the list?</p>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" form="delete-fmm-frm">Yes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
 
     <!-- HOLYWEEK RETREAT MODALS -->
     <!-- Upload/Import Modal -->
@@ -344,6 +501,58 @@ include 'header.php';
         </div>
     </div>
     <!-- /Upload/Import Modal -->
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit_modal_hwr" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Holy Week Retreat</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="edit-hwr-frm">
+                            <input name="hwr_id">
+                            <input name="user_id">
+                            <!-- event date -->
+                            <div class="form-group">
+                                <label class="control-label">Event Date</label>
+                                <input type="text" class="form-control rounded-0" name="event_date" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="edit-hwr-frm">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Modal -->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete_modal_hwr" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="delete-hwr-frm">
+                            <input name="hwrID" >
+                            <p>Are you sure to delete <b><span ></span></b> from the list?</p>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" form="delete-hwr-frm">Yes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
 
     <!-- FEASTPH MODALS -->
     <!-- Upload/Import Modal -->
@@ -375,6 +584,63 @@ include 'header.php';
         </div>
     </div>
     <!-- /Upload/Import Modal -->
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit_modal_feastph" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Feast PH</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="edit-feastph-frm">
+                            <input name="feastph_id">
+                            <input name="user_id">
+                            <!-- file name -->
+                            <div class="form-group">
+                                <label class="control-label">File Name</label>
+                                <input type="text" class="form-control rounded-0" name="file_name" required>
+                            </div>
+                            <!-- download date -->
+                            <div class="form-group">
+                                <label class="control-label">File Download Date</label>
+                                <input type="text" class="form-control rounded-0" name="file_download_date" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="edit-feastph-frm">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Modal -->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete_modal_feastph" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="delete-feastph-frm">
+                            <input name="feastphID" >
+                            <p>Are you sure to delete <b><span ></span></b> from the list?</p>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" form="delete-feastph-frm">Yes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
 
     <!-- FEASTMEDIA MODALS -->
     <!-- Upload/Import Modal -->
@@ -406,6 +672,78 @@ include 'header.php';
         </div>
     </div>
     <!-- /Upload/Import Modal -->
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit_modal_feastmedia" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Feast Media</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="edit-feastmedia-frm">
+                            <input name="feastmedia_event_id">
+                            <input name="user_id">
+                            <!-- event name -->
+                            <div class="form-group">
+                                <label class="control-label">Event Name</label>
+                                <input type="text" class="form-control rounded-0" name="event_name" required>
+                            </div>
+                            <!-- ticket type -->
+                            <div class="form-group">
+                                <label class="control-label">Ticket Type</label>
+                                <input type="text" class="form-control rounded-0" name="ticket_type" required>
+                            </div>
+                            <!-- event type -->
+                            <div class="form-group">
+                                <label class="control-label">Event Type</label>
+                                <input type="text" class="form-control rounded-0" name="event_type" required>
+                            </div>
+                            <!-- event date -->
+                            <div class="form-group">
+                                <label class="control-label">Event Date</label>
+                                <input type="text" class="form-control rounded-0" name="event_date" required>
+                            </div>
+                            <!-- ticket cost -->
+                            <div class="form-group">
+                                <label class="control-label">Ticket Cost</label>
+                                <input type="text" class="form-control rounded-0" name="ticket_cost" required>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" form="edit-feastmedia-frm">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Modal -->
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete_modal_feastmedia" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form action="" id="delete-feastmedia-frm">
+                            <input name="feastmediaID" >
+                            <p>Are you sure to delete <b><span ></span></b> from the list?</p>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" form="delete-feastmedia-frm">Yes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Modal -->
 
     <!-- FEASTAPP MODALS -->
     <!-- Upload/Import Modal -->

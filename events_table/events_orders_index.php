@@ -9,6 +9,7 @@
                     <th class="px-1 py-1 text-center">OrderDate</th>
                     <th class="px-1 py-1 text-center">CompletedDate</th>
                     <th class="px-1 py-1 text-center">PaymentMethod</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </thead>
             <tfoot>
@@ -19,6 +20,7 @@
                     <th class="px-1 py-1 text-center">OrderDate</th>
                     <th class="px-1 py-1 text-center">CompletedDate</th>
                     <th class="px-1 py-1 text-center">PaymentMethod</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </tfoot>
         </table>

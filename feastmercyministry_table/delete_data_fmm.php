@@ -3,8 +3,8 @@
 require_once '../connect.php';
 extract($_POST);
  
-$update = $conn->query("UPDATE `feastcon` set `country` = '{$country}', `feastDistrict` = '{$feastDistrict}', `ticketType` = '{$ticketType}', `classAttended` = '{$classAttended}' where feastconID = '{$feastconID}'");
-if($update){
+$delete = $conn->query("DELETE FROM `feastmercyministry` where fmm_id = '{$fmmID}'");
+if($delete){
     $resp['status'] = 'success';
 }else{
     $resp['status'] = 'failed';

@@ -27,6 +27,7 @@
                     <th class="px-1 py-1 text-center">EndDonationDate</th>
                     <th class="px-1 py-1 text-center">Amount</th>
                     <th class="px-1 py-1 text-center">PayMethod</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </thead>
             <tfoot>
@@ -38,6 +39,7 @@
                     <th class="px-1 py-1 text-center">EndDonationDate</th>
                     <th class="px-1 py-1 text-center">Amount</th>
                     <th class="px-1 py-1 text-center">PayMethod</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </tfoot>
         </table>

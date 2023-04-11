@@ -49,9 +49,58 @@ $(function() {
                 data: 'ticket_cost',
                 className: 'py-0 px-1'
             },
+            {
+                data: null,
+                orderable: false,
+                className: 'text-center py-0 px-1',
+                render: function(data, type, row, meta) {
+                    console.log()
+                    return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_feastmedia btn-primary" href="javascript:void(0)" data-id="' + (row.feastmedia_event_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_feastmedia btn-danger" href="javascript:void(0)" data-id="' + (row.feastmedia_event_id) + '">Delete</a>';
+                }
+            }
         ],
         drawCallback: function(settings) {
-            
+            $('.edit_data_feastmedia').click(function() {
+                $.ajax({
+                    url: './feastmedia_table/get_single_feastmedia.php',
+                    data: { feastmediaID: $(this).attr('data-id') },
+                    method: 'POST',
+                    dataType: 'json',
+                    error: err => {
+                        alert("An error occured while fetching single data")
+                    },
+                    success: function(resp) {
+                        if (!!resp.status) {
+                            Object.keys(resp.data).map(k => {
+                                if ($('#edit_modal_feastmedia').find('input[name="' + k + '"]').length > 0)
+                                    $('#edit_modal_feastmedia').find('input[name="' + k + '"]').val(resp.data[k])
+                            })
+                            $('#edit_modal_feastmedia').modal('show')
+                        } else {
+                            alert("An error occured while fetching single data")
+                        }
+                    }
+                })
+            })
+            $('.delete_data_feastmedia').click(function() {
+                $.ajax({
+                    url: './feastmedia_table/get_single_feastmedia.php',
+                    data: { feastmediaID: $(this).attr('data-id') },
+                    method: 'POST',
+                    dataType: 'json',
+                    error: err => {
+                        alert("An error occured while fetching single data")
+                    },
+                    success: function(resp) {
+                        if (!!resp.status) {
+                            $('#delete_modal_feastmedia').find('input[name="feastmediaID"]').val(resp.data['feastmedia_event_id'])
+                            $('#delete_modal_feastmedia').modal('show')
+                        } else {
+                            alert("An error occured while fetching single data")
+                        }
+                    }
+                })
+            })
         },
         buttons: [{
             text: "Add Feast Media",
@@ -124,5 +173,109 @@ $('#new-feastmedia-frm').submit(function(e) {
     })  
     }
     return false;
+})
+// Update Data
+$('#edit-feastmedia-frm').submit(function(e) {
+    e.preventDefault()
+    $('#edit_modal_feastmedia button').attr('disabled', true)
+    $('#edit_modal_feastmedia button[form="edit-feastmedia-frm"]').text("saving ...")
+    $.ajax({
+        url: './feastmedia_table/update_data_feastmedia.php',
+        data: $(this).serialize(),
+        method: 'POST',
+        dataType: "json",
+        error: err => {
+            alert("An error occured. Please check the source code and try again")
+            $('#edit-feastmedia-frm').get(0).reset()
+        },
+        success: function(resp) {
+            if (!!resp.status) {
+                if (resp.status == 'success') {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-primary alert_msg')
+                    _el.text("Data successfully updated");
+                    $('#edit-feastmedia-frm').get(0).reset()
+                    $('.modal').modal('hide')
+                    $('#msg').append(_el)
+                    _el.show('slow')
+                    draw_data();
+                    setTimeout(() => {
+                        _el.hide('slow')
+                            .remove()
+                    }, 2500)
+                } else if (resp.status == 'success' && !!resp.msg) {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-danger alert_msg form-group')
+                    _el.text(resp.msg);
+                    $('#edit-feastmedia-frm').append(_el)
+                    _el.show('slow')
+                } else {
+                    alert("An error occured. Please check the source code and try again")
+                    $('#edit-feastmedia-frm').get(0).reset()
+                }
+            } else {
+                alert("An error occurred. Please check the source code and try again")
+                $('#edit-feastmedia-frm').get(0).reset()
+            }
+
+            $('#edit_modal_feastmedia button').attr('disabled', false)
+            $('#edit_modal_feastmedia button[form="edit-feastmedia-frm"]').text("Save")
+            $('#edit-feastmedia-frm').get(0).reset()
+        }
+    })
+})
+// DELETE Data
+$('#delete-feastmedia-frm').submit(function(e) {
+    e.preventDefault()
+    $('#delete_modal_feastmedia button').attr('disabled', true)
+    $('#delete_modal_feastmedia button[form="delete-feastmedia-frm"]').text("deleting data ...")
+    $.ajax({
+        url: './feastmedia_table/delete_data_feastmedia.php',
+        data: $(this).serialize(),
+        method: 'POST',
+        dataType: "json",
+        error: err => {
+            alert("An error occured. Please check the source code and try again")
+            $('#delete-feastmedia-frm').get(0).reset()
+        },
+        success: function(resp) {
+            if (!!resp.status) {
+                if (resp.status == 'success') {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-primary alert_msg')
+                    _el.text("Data successfully deleted");
+                    $('#delete-feastmedia-frm').get(0).reset()
+                    $('.modal').modal('hide')
+                    $('#msg').append(_el)
+                    _el.show('slow')
+                    draw_data();
+                    setTimeout(() => {
+                        _el.hide('slow')
+                            .remove()
+                    }, 2500)
+                } else if (resp.status == 'success' && !!resp.msg) {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-danger alert_msg form-group')
+                    _el.text(resp.msg);
+                    $('#delete-feastmedia-frm').append(_el)
+                    _el.show('slow')
+                } else {
+                    alert("An error occured. Please check the source code and try again")
+                    $('#delete-feastmedia-frm').get(0).reset()
+                }
+            } else {
+                alert("An error occurred. Please check the source code and try again")
+                $('#delete-feastmedia-frm').get(0).reset()
+            }
+
+            $('#delete_modal_feastmedia button').attr('disabled', false)
+            $('#delete_modal_feastmedia button[form="delete-feastmedia-frm"]').text("YEs")
+            $('#delete-feastmedia-frm').get(0).reset()
+        }
+    })
 })
 })

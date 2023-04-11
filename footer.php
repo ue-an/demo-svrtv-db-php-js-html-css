@@ -130,6 +130,9 @@
             closeAll(events_table.id);
         }
 
+        function dropDownBonafied(e) {
+            document.getElementById("bonafied").value = e.target.value
+        }
         
     </script>
 </html>

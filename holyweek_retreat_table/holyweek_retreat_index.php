@@ -6,6 +6,7 @@
                     <th class="px-1 py-1 text-center">HolyWeekRetreatID</th>
                     <th class="px-1 py-1 text-center">Name</th>
                     <th class="px-1 py-1 text-center">EventDate</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </thead>
             <tfoot>
@@ -13,6 +14,7 @@
                     <th class="px-1 py-1 text-center">HolyWeekRetreatID</th>
                     <th class="px-1 py-1 text-center">Name</th>
                     <th class="px-1 py-1 text-center">EventDate</th>
+                    <th class="px-1 py-1 text-center">Actions</th>
                 </tr>
             </tfoot>
         </table>

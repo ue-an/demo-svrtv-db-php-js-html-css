@@ -38,60 +38,59 @@ $(function() {
             {
                 data: 'ticket_cost',
                 className: 'py-0 px-1'
+            },
+            {
+                data: null,
+                orderable: false,
+                className: 'text-center py-0 px-1',
+                render: function(data, type, row, meta) {
+                    console.log()
+                    return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_events_ticket btn-primary" href="javascript:void(0)" data-id="' + (row.ticket_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_events_ticket btn-danger" href="javascript:void(0)" data-id="' + (row.ticket_id) + '">Delete</a>';
+                }
             }
-            //
-            // {
-            //     data: null,
-            //     orderable: false,
-            //     className: 'text-center py-0 px-1',
-            //     render: function(data, type, row, meta) {
-            //         console.log()
-            //         return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_feastcon btn-primary" href="javascript:void(0)" data-id="' + (row.event_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_feastcon btn-danger" href="javascript:void(0)" data-id="' + (row.feastconID) + '">Delete</a>';
-            //     }
-            // }
         ],
         drawCallback: function(settings) {
-            // $('.edit_data_feastcon').click(function() {
-            //     $.ajax({
-            //         url: './feastcon_table/get_single.php',
-            //         data: { feastconID: $(this).attr('data-id') },
-            //         method: 'POST',
-            //         dataType: 'json',
-            //         error: err => {
-            //             alert("An error occured while fetching single data")
-            //         },
-            //         success: function(resp) {
-            //             if (!!resp.status) {
-            //                 Object.keys(resp.data).map(k => {
-            //                     if ($('#edit_modal_feastcon').find('input[name="' + k + '"]').length > 0)
-            //                         $('#edit_modal_feastcon').find('input[name="' + k + '"]').val(resp.data[k])
-            //                 })
-            //                 $('#edit_modal_feastcon').modal('show')
-            //             } else {
-            //                 alert("An error occured while fetching single data")
-            //             }
-            //         }
-            //     })
-            // })
-            // $('.delete_data_feastcon').click(function() {
-            //     $.ajax({
-            //         url: './feastcon_table/get_single.php',
-            //         data: { feastconID: $(this).attr('data-id') },
-            //         method: 'POST',
-            //         dataType: 'json',
-            //         error: err => {
-            //             alert("An error occured while fetching single data")
-            //         },
-            //         success: function(resp) {
-            //             if (!!resp.status) {
-            //                 $('#delete_modal_feastcon').find('input[name="feastconID"]').val(resp.data['feastconID'])
-            //                 $('#delete_modal_feastcon').modal('show')
-            //             } else {
-            //                 alert("An error occured while fetching single data")
-            //             }
-            //         }
-            //     })
-            // })
+            $('.edit_data_events_ticket').click(function() {
+                $.ajax({
+                    url: './events_table/get_single_event_ticket.php',
+                    data: { ticketID: $(this).attr('data-id') },
+                    method: 'POST',
+                    dataType: 'json',
+                    error: err => {
+                        alert("An error occured while fetching single data")
+                    },
+                    success: function(resp) {
+                        if (!!resp.status) {
+                            Object.keys(resp.data).map(k => {
+                                if ($('#edit_modal_event_ticket').find('input[name="' + k + '"]').length > 0)
+                                    $('#edit_modal_event_ticket').find('input[name="' + k + '"]').val(resp.data[k])
+                            })
+                            $('#edit_modal_event_ticket').modal('show')
+                        } else {
+                            alert("An error occured while fetching single data")
+                        }
+                    }
+                })
+            })
+            $('.delete_data_events_ticket').click(function() {
+                $.ajax({
+                    url: './events_table/get_single_event_ticket.php',
+                    data: { ticketID: $(this).attr('data-id') },
+                    method: 'POST',
+                    dataType: 'json',
+                    error: err => {
+                        alert("An error occured while fetching single data")
+                    },
+                    success: function(resp) {
+                        if (!!resp.status) {
+                            $('#delete_modal_event_ticket').find('input[name="ticketID"]').val(resp.data['ticket_id'])
+                            $('#delete_modal_event_ticket').modal('show')
+                        } else {
+                            alert("An error occured while fetching single data")
+                        }
+                    }
+                })
+            })
         },
         buttons: [{
             text: "Add Event",
@@ -163,5 +162,109 @@ $('#new-event-ticket-frm').submit(function(e) {
        })  
     }
     return false;
+})
+// Update Data
+$('#edit-event-ticket-frm').submit(function(e) {
+    e.preventDefault()
+    $('#edit_modal_event_ticket button').attr('disabled', true)
+    $('#edit_modal_event_ticket button[form="edit-event-ticket-frm"]').text("saving ...")
+    $.ajax({
+        url: './events_table/update_data_events_ticket.php',
+        data: $(this).serialize(),
+        method: 'POST',
+        dataType: "json",
+        error: err => {
+            alert("An error occured. Please check the source code and try again")
+            $('#edit-event-ticket-frm').get(0).reset()
+        },
+        success: function(resp) {
+            if (!!resp.status) {
+                if (resp.status == 'success') {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-primary alert_msg')
+                    _el.text("Data successfully updated");
+                    $('#edit-event-ticket-frm').get(0).reset()
+                    $('.modal').modal('hide')
+                    $('#msg').append(_el)
+                    _el.show('slow')
+                    draw_data();
+                    setTimeout(() => {
+                        _el.hide('slow')
+                            .remove()
+                    }, 2500)
+                } else if (resp.status == 'success' && !!resp.msg) {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-danger alert_msg form-group')
+                    _el.text(resp.msg);
+                    $('#edit-event-ticket-frm').append(_el)
+                    _el.show('slow')
+                } else {
+                    alert("An error occured. Please check the source code and try again")
+                    $('#edit-event-ticket-frm').get(0).reset()
+                }
+            } else {
+                alert("An error occurred. Please check the source code and try again")
+                $('#edit-event-ticket-frm').get(0).reset()
+            }
+
+            $('#edit_modal_event_ticket button').attr('disabled', false)
+            $('#edit_modal_event_ticket button[form="edit-event-ticket-frm"]').text("Save")
+            $('#edit-event-ticket-frm').get(0).reset()
+        }
+    })
+})
+// DELETE Data
+$('#delete-event-ticket-frm').submit(function(e) {
+    e.preventDefault()
+    $('#delete_modal_event_ticket button').attr('disabled', true)
+    $('#delete_modal_event_ticket button[form="delete-event-ticket-frm"]').text("deleting data ...")
+    $.ajax({
+        url: './events_table/delete_data_events_ticket.php',
+        data: $(this).serialize(),
+        method: 'POST',
+        dataType: "json",
+        error: err => {
+            alert("An error occured. Please check the source code and try again")
+            $('#delete-event-ticket-frm').get(0).reset()
+        },
+        success: function(resp) {
+            if (!!resp.status) {
+                if (resp.status == 'success') {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-primary alert_msg')
+                    _el.text("Data successfully deleted");
+                    $('#delete-event-ticket-frm').get(0).reset()
+                    $('.modal').modal('hide')
+                    $('#msg').append(_el)
+                    _el.show('slow')
+                    draw_data();
+                    setTimeout(() => {
+                        _el.hide('slow')
+                            .remove()
+                    }, 2500)
+                } else if (resp.status == 'success' && !!resp.msg) {
+                    var _el = $('<div>')
+                    _el.hide()
+                    _el.addClass('alert alert-danger alert_msg form-group')
+                    _el.text(resp.msg);
+                    $('#delete-event-ticket-frm').append(_el)
+                    _el.show('slow')
+                } else {
+                    alert("An error occured. Please check the source code and try again")
+                    $('#delete-event-ticket-frm').get(0).reset()
+                }
+            } else {
+                alert("An error occurred. Please check the source code and try again")
+                $('#delete-event-ticket-frm').get(0).reset()
+            }
+
+            $('#delete_modal_event_ticket button').attr('disabled', false)
+            $('#delete_modal_event_ticket button[form="delete-event-ticket-frm"]').text("YEs")
+            $('#delete-event-ticket-frm').get(0).reset()
+        }
+    })
 })
 })

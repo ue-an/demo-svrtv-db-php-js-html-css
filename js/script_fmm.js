@@ -48,22 +48,62 @@ $(function() {
                 {
                     data: 'pay_method',
                     className: 'py-0 px-1'
+                },
+                {
+                    data: null,
+                    orderable: false,
+                    className: 'text-center py-0 px-3',
+                    render: function(data, type, row, meta) {
+                        console.log()
+                        return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_fmm btn-primary" href="javascript:void(0)" data-id="' + (row.fmm_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_fmm btn-danger" href="javascript:void(0)" data-id="' + (row.fmm_id) + '">Delete</a>';
+                    }
                 }
-                // {
-                //     data: null,
-                //     orderable: false,
-                //     className: 'text-center py-0 px-3',
-                //     render: function(data, type, row, meta) {
-                //         console.log()
-                //         return '<a class="me-2 btn btn-sm rounded-0 py-0 edit_data_anawim btn-primary" href="javascript:void(0)" data-id="' + (row.fmm_id) + '">Edit</a><a class="btn btn-sm rounded-0 py-0 delete_data_anawim btn-danger" href="javascript:void(0)" data-id="' + (row.fmm_id) + '">Delete</a>';
-                //     }
-                // }
             ],
             drawCallback: function(settings) {
-                //
+                $('.edit_data_fmm').click(function() {
+                    $.ajax({
+                        url: './feastmercyministry_table/get_single_fmm.php',
+                        data: { fmmID: $(this).attr('data-id') },
+                        method: 'POST',
+                        dataType: 'json',
+                        error: err => {
+                            alert("An error occured while fetching single data")
+                        },
+                        success: function(resp) {
+                            if (!!resp.status) {
+                                Object.keys(resp.data).map(k => {
+                                    if ($('#edit_modal_fmm').find('input[name="' + k + '"]').length > 0)
+                                        $('#edit_modal_fmm').find('input[name="' + k + '"]').val(resp.data[k])
+                                })
+                                $('#edit_modal_fmm').modal('show')
+                            } else {
+                                alert("An error occured while fetching single data")
+                            }
+                        }
+                    })
+                })
+                $('.delete_data_fmm').click(function() {
+                    $.ajax({
+                        url: './feastmercyministry_table/get_single_fmm.php',
+                        data: { fmmID: $(this).attr('data-id') },
+                        method: 'POST',
+                        dataType: 'json',
+                        error: err => {
+                            alert("An error occured while fetching single data")
+                        },
+                        success: function(resp) {
+                            if (!!resp.status) {
+                                $('#delete_modal_fmm').find('input[name="fmmID"]').val(resp.data['fmm_id'])
+                                $('#delete_modal_fmm').modal('show')
+                            } else {
+                                alert("An error occured while fetching single data")
+                            }
+                        }
+                    })
+                })
             },
             buttons: [{
-                text: "Add Anawim",
+                text: "Add Feast Mercy Ministry",
                 className: "btn btn-primary fw-bold py-0",
                 action: function(e, dt, node, config) {
                     $('#add_modal_fmm').modal('show')
@@ -134,102 +174,102 @@ $(function() {
         return false;
     })
 
-    // Update Data
-    // $('#edit-anawim-frm').submit(function(e) {
-    //     e.preventDefault()
-    //     $('#edit_modal_anawim button').attr('disabled', true)
-    //     $('#edit_modal_anawim button[form="edit-anawim-frm"]').text("saving ...")
-    //     $.ajax({
-    //         url: './anawim_table/update_data.php',
-    //         data: $(this).serialize(),
-    //         method: 'POST',
-    //         dataType: "json",
-    //         error: err => {
-    //             alert("An error occured. Please check the source code and try again")
-    //         },
-    //         success: function(resp) {
-    //             if (!!resp.status) {
-    //                 if (resp.status == 'success') {
-    //                     var _el = $('<div>')
-    //                     _el.hide()
-    //                     _el.addClass('alert alert-primary alert_msg')
-    //                     _el.text("Data successfully updated");
-    //                     $('#edit-anawim-frm').get(0).reset()
-    //                     $('.modal').modal('hide')
-    //                     $('#msg').append(_el)
-    //                     _el.show('slow')
-    //                     draw_data();
-    //                     setTimeout(() => {
-    //                         _el.hide('slow')
-    //                             .remove()
-    //                     }, 2500)
-    //                 } else if (resp.status == 'success' && !!resp.msg) {
-    //                     var _el = $('<div>')
-    //                     _el.hide()
-    //                     _el.addClass('alert alert-danger alert_msg form-group')
-    //                     _el.text(resp.msg);
-    //                     $('#edit-anawim-frm').append(_el)
-    //                     _el.show('slow')
-    //                 } else {
-    //                     alert("An error occured. Please check the source code and try again")
-    //                 }
-    //             } else {
-    //                 alert("An error occurred. Please check the source code and try again")
-    //             }
+    //Update Data
+    $('#edit-fmm-frm').submit(function(e) {
+        e.preventDefault()
+        $('#edit_modal_fmm button').attr('disabled', true)
+        $('#edit_modal_fmm button[form="edit-fmm-frm"]').text("saving ...")
+        $.ajax({
+            url: './feastmercyministry_table/update_data_fmm.php',
+            data: $(this).serialize(),
+            method: 'POST',
+            dataType: "json",
+            error: err => {
+                alert("An error occured. Please check the source code and try again")
+            },
+            success: function(resp) {
+                if (!!resp.status) {
+                    if (resp.status == 'success') {
+                        var _el = $('<div>')
+                        _el.hide()
+                        _el.addClass('alert alert-primary alert_msg')
+                        _el.text("Data successfully updated");
+                        $('#edit-fmm-frm').get(0).reset()
+                        $('.modal').modal('hide')
+                        $('#msg').append(_el)
+                        _el.show('slow')
+                        draw_data();
+                        setTimeout(() => {
+                            _el.hide('slow')
+                                .remove()
+                        }, 2500)
+                    } else if (resp.status == 'success' && !!resp.msg) {
+                        var _el = $('<div>')
+                        _el.hide()
+                        _el.addClass('alert alert-danger alert_msg form-group')
+                        _el.text(resp.msg);
+                        $('#edit-fmm-frm').append(_el)
+                        _el.show('slow')
+                    } else {
+                        alert("An error occured. Please check the source code and try again")
+                    }
+                } else {
+                    alert("An error occurred. Please check the source code and try again")
+                }
     
-    //             $('#edit_modal_anawim button').attr('disabled', false)
-    //             $('#edit_modal_anawim button[form="edit-anawim-frm"]').text("Save")
-    //         }
-    //     })
-    //     })
+                $('#edit_modal_fmm button').attr('disabled', false)
+                $('#edit_modal_fmm button[form="edit-fmm-frm"]').text("Save")
+            }
+        })
+        })
 
         // Delete Data
-    // $('#delete-anawim-frm').submit(function(e) {
-    //     e.preventDefault()
-    //     $('#delete_modal_anawim button').attr('disabled', true)
-    //     $('#delete_modal_anawim button[form="delete-anawim-frm"]').text("deleting data ...")
-    //     $.ajax({
-    //         url: './anawim_table/delete_data.php',
-    //         data: $(this).serialize(),
-    //         method: 'POST',
-    //         dataType: "json",
-    //         error: err => {
-    //             alert("An error occured. Please check the source code and try again")
-    //         },
-    //         success: function(resp) {
-    //             if (!!resp.status) {
-    //                 if (resp.status == 'success') {
-    //                     var _el = $('<div>')
-    //                     _el.hide()
-    //                     _el.addClass('alert alert-primary alert_msg')
-    //                     _el.text("Data successfully deleted");
-    //                     $('#delete-anawim-frm').get(0).reset()
-    //                     $('.modal').modal('hide')
-    //                     $('#msg').append(_el)
-    //                     _el.show('slow')
-    //                     draw_data();
-    //                     setTimeout(() => {
-    //                         _el.hide('slow')
-    //                             .remove()
-    //                     }, 2500)
-    //                 } else if (resp.status == 'success' && !!resp.msg) {
-    //                     var _el = $('<div>')
-    //                     _el.hide()
-    //                     _el.addClass('alert alert-danger alert_msg form-group')
-    //                     _el.text(resp.msg);
-    //                     $('#delete-anawim-frm').append(_el)
-    //                     _el.show('slow')
-    //                 } else {
-    //                     alert("An error occured. Please check the source code and try again")
-    //                 }
-    //             } else {
-    //                 alert("An error occurred. Please check the source code and try again")
-    //             }
+    $('#delete-fmm-frm').submit(function(e) {
+        e.preventDefault()
+        $('#delete_modal_fmm button').attr('disabled', true)
+        $('#delete_modal_fmm button[form="delete-fmm-frm"]').text("deleting data ...")
+        $.ajax({
+            url: './feastmercyministry_table/delete_data_fmm.php',
+            data: $(this).serialize(),
+            method: 'POST',
+            dataType: "json",
+            error: err => {
+                alert("An error occured. Please check the source code and try again")
+            },
+            success: function(resp) {
+                if (!!resp.status) {
+                    if (resp.status == 'success') {
+                        var _el = $('<div>')
+                        _el.hide()
+                        _el.addClass('alert alert-primary alert_msg')
+                        _el.text("Data successfully deleted");
+                        $('#delete-fmm-frm').get(0).reset()
+                        $('.modal').modal('hide')
+                        $('#msg').append(_el)
+                        _el.show('slow')
+                        draw_data();
+                        setTimeout(() => {
+                            _el.hide('slow')
+                                .remove()
+                        }, 2500)
+                    } else if (resp.status == 'success' && !!resp.msg) {
+                        var _el = $('<div>')
+                        _el.hide()
+                        _el.addClass('alert alert-danger alert_msg form-group')
+                        _el.text(resp.msg);
+                        $('#delete-fmm-frm').append(_el)
+                        _el.show('slow')
+                    } else {
+                        alert("An error occured. Please check the source code and try again")
+                    }
+                } else {
+                    alert("An error occurred. Please check the source code and try again")
+                }
     
-    //             $('#delete_modal_anawim button').attr('disabled', false)
-    //             $('#delete_modal_anawim button[form="delete-anawim-frm"]').text("YEs")
-    //         }
-    //     })
-    //     })
+                $('#delete_modal_fmm button').attr('disabled', false)
+                $('#delete_modal_fmm button[form="delete-fmm-frm"]').text("YEs")
+            }
+        })
+        })
 
 })
