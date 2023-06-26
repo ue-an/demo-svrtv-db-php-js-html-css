@@ -2,7 +2,7 @@
 require '../connect.php';
 extract($_POST);
 
-$totalCount = $conn->query("SELECT * FROM `events_ticket` ")->num_rows;
+$totalCount = $conn->query("SELECT * FROM `events_tickets` ")->num_rows;
 $search_where = "";
 if (!empty($search)) {
     $search_where = " where ";
@@ -20,8 +20,8 @@ $columns_arr = array(
     "ticket_cost",
 );
 //ticket_id, event_id, ticket_type, ticket_name, ticket_cost
-$query = $conn->query("SELECT ticket_id, events.event_name, ticket_type, ticket_name, ticket_cost FROM events_ticket INNER JOIN events ON events_ticket.event_id = events.event_id {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
-$recordsFilterCount = $conn->query("SELECT ticket_id, events.event_name, ticket_type, ticket_name, ticket_cost FROM events_ticket INNER JOIN events ON events_ticket.event_id = events.event_id {$search_where}")->num_rows;
+$query = $conn->query("SELECT ticket_id, events.event_name, ticket_type, ticket_name, ticket_cost FROM events_tickets INNER JOIN events ON events_tickets.event_id = events.event_id {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
+$recordsFilterCount = $conn->query("SELECT ticket_id, events.event_name, ticket_type, ticket_name, ticket_cost FROM events_tickets INNER JOIN events ON events_tickets.event_id = events.event_id {$search_where}")->num_rows;
 $recordsTotal = $totalCount;
 $recordsFiltered = $recordsFilterCount;
 $data = array();

@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$delete = $conn->query("DELETE FROM `feastmedia` where feast_media_event_id = '{$feastmediaID}'");
+$delete = $conn->query("DELETE FROM `feastmedia_records` where feast_media_event_id = '{$feastmediaID}'");
 if($delete){
     $resp['status'] = 'success';
 }else{

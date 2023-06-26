@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$delete = $conn->query("DELETE FROM `holyweekretreat` where hwr_id = '{$hwrID}'");
+$delete = $conn->query("DELETE FROM `holyweekretreat_records` where hwr_id = '{$hwrID}'");
 if($delete){
     $resp['status'] = 'success';
 }else{

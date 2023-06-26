@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$query = $conn->query("SELECT * FROM `feastph_records` where feastph_id = '{$feastphID}'");
+$query = $conn->query("SELECT * FROM `feastbooks_products` where product_id = '{$orderNo}'");
 if($query){
     $resp['status'] = 'success';
     $resp['data'] = $query->fetch_array();

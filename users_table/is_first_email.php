@@ -1,6 +1,6 @@
 <?php
 function notFirstEmail($mysqli, $email) {
-    $sql = "SELECT * FROM users WHERE email = ?";
+    $sql = "SELECT * FROM attendees WHERE email = ?";
     $stmt = mysqli_stmt_init($mysqli);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();

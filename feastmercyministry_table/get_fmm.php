@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$totalCount = $conn->query("SELECT * FROM `feastmercyministry` ")->num_rows;
+$totalCount = $conn->query("SELECT * FROM `feastmercyministry_records` ")->num_rows;
 $search_where = "";
 if(!empty($search)){
     $search_where = " where ";
@@ -25,11 +25,11 @@ $columns_arr = array(
                      "pay_method",
                     );
 // $query2 = $conn->query("SELECT * FROM `feastcon` {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start} ");
-$query = $conn->query("SELECT fmm_id, users.first_name, users.last_name, donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry INNER JOIN users ON feastmercyministry.user_id = users.user_id {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
+$query = $conn->query("SELECT fmm_id, attendees.first_name, attendees.last_name, donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry_records INNER JOIN attendees ON feastmercyministry_records.user_id = attendees.user_id {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
 // $query = $conn->query("SELECT feastconID, users.email, country, feastDistrict, ticketType, classAttended
 // FROM (feastcon
 // INNER JOIN users ON feastcon.userID = users.userID)");
-$recordsFilterCount = $conn->query("SELECT fmm_id, coalesce(users.first_name,'')+' '+ coalesce(users.last_name,''), donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry INNER JOIN users ON feastmercyministry.user_id = users.user_id {$search_where} ")->num_rows;
+$recordsFilterCount = $conn->query("SELECT fmm_id, coalesce(attendees.first_name,'')+' '+ coalesce(attendees.last_name,''), donor_type, donation_start_date, donation_end_date, amount, pay_method FROM feastmercyministry_records INNER JOIN attendees ON feastmercyministry_records.user_id = attendees.user_id {$search_where} ")->num_rows;
  
 $recordsTotal= $totalCount;
 $recordsFiltered= $recordsFilterCount;

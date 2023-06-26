@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$query = $conn->query("SELECT * FROM `feastmercyministry` where fmm_id = '{$fmmID}'");
+$query = $conn->query("SELECT * FROM `feastmercyministry_records` where fmm_id = '{$fmmID}'");
 if($query){
     $resp['status'] = 'success';
     $resp['data'] = $query->fetch_array();

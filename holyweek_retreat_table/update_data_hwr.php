@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$update = $conn->query("UPDATE `holyweekretreat` set `event_date` = '{$event_date}' where hwr_id = '{$hwr_id}'");
+$update = $conn->query("UPDATE `holyweekretreat_records` set `event_date` = '{$event_date}' where hwr_id = '{$hwr_id}'");
 if($update){
     $resp['status'] = 'success';
 }else{

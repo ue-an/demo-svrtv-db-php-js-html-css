@@ -1,6 +1,6 @@
 <?php
 function feastmediaExist($mysqli, $userID) {
- $sql = "SELECT * FROM feastmedia WHERE user_id = ?";
+ $sql = "SELECT * FROM feastmedia_records WHERE user_id = ?";
  $stmt = mysqli_stmt_init($mysqli);
  if (!mysqli_stmt_prepare($stmt, $sql)) {
   exit();

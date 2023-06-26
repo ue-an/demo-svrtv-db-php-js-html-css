@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$update = $conn->query("UPDATE `feastmedia` set `event_name` = '{$event_name}', `ticket_type` = '{$ticket_type}', `event_type` = '{$event_type}', `event_date` = '{$event_date}', `ticket_cost` = '{$ticket_cost}' where feast_media_event_id = '{$feastmedia_event_id}'");
+$update = $conn->query("UPDATE `feastmedia_records` set `event_name` = '{$event_name}', `ticket_type` = '{$ticket_type}', `event_type` = '{$event_type}', `event_date` = '{$event_date}', `ticket_cost` = '{$ticket_cost}' where feast_media_event_id = '{$feastmedia_event_id}'");
 if($update){
     $resp['status'] = 'success';
 }else{

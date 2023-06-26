@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$totalCount = $conn->query("SELECT * FROM `users` ")->num_rows;
+$totalCount = $conn->query("SELECT * FROM `attendees` ")->num_rows;
 $search_where = "";
 if(!empty($search)){
     $search_where = " where ";
@@ -26,8 +26,8 @@ $columns_arr = array("user_id",
                      "city",
                      "country"
                     );
-$query = $conn->query("SELECT * FROM `users` {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start} ");
-$recordsFilterCount = $conn->query("SELECT * FROM `users` {$search_where} ")->num_rows;
+$query = $conn->query("SELECT * FROM `attendees` {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start} ");
+$recordsFilterCount = $conn->query("SELECT * FROM `attendees` {$search_where} ")->num_rows;
  
 $recordsTotal= $totalCount;
 $recordsFiltered= $recordsFilterCount;

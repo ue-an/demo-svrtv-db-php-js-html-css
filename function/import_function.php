@@ -4,11 +4,15 @@ require_once '../connect.php';
 require '../users_table/check_dup_users.php';
 require '../users_table/is_first_email.php';
 require '../events_table/check_dup_events_orders.php';
+require '../events_table/check_dup_events_ticket.php';
 require '../feastmercyministry_table/check_dup_fmm.php';
 require '../holyweek_retreat_table/check_dup_holyweek_retreat.php';
 require '../feastph_table/check_dup_feastph.php';
 require '../feastmedia_table/check_dup_feastmedia.php';
 require '../feastapp_table/check_dup_feastapp.php';
+require '../feastbooks_table/check_dup_feastbook_products.php';
+require '../feastbooks_table/check_dup_feastbook_orders.php';
+require '../feastbooks_table/check_dup_feastbook_transactions.php';
 require '../vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
@@ -40,7 +44,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $lastname = $arr_att_name[$arr_length];
                         $mobile_number = $row['2'];
                         $int = (int)$mobile_number;
-                        $isFeastAttendee = "";
+                        $isFeastAttendee = 0;
                         $feastName = $row['3'];
                         $district = $row['4'];
                         $address = $row['5'];
@@ -58,12 +62,12 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
             
                         $user_exist = userExist($p_conn, $email, $lastname, $firstname);
                         if ($user_exist === false) {
-                            $sql = "INSERT INTO users (user_id, email, last_name, first_name, mobile_no, is_bonafied) VALUES (?, ?, ?, ?, ?, ?)";
+                            $sql = "INSERT INTO attendees (user_id, email, last_name, first_name, mobile_no, is_bonafied, is_feast_attendee, feast_name, feast_district, address, city, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
                             }
-                            mysqli_stmt_bind_param($stmt,"ssssss",$userID, $email, $lastname, $firstname, $mobile_number, $isBonafied);
+                            mysqli_stmt_bind_param($stmt,"ssssssssssss",$userID, $email, $lastname, $firstname, $mobile_number, $isBonafied, $isFeastAttendee, $feastName, $district, $address, $city, $country);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
                             if($sql){
@@ -148,21 +152,27 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $ticketType = $row['1'];
                         $ticketName = $row['2'];
                         $ticketCost = $row['3'];
-                        
-                        $sql = "INSERT INTO events_ticket (ticket_id, event_id, ticket_type, ticket_name, ticket_cost) VALUES ( ?, ?, ?, ?, ?)";
-                        $stmt = mysqli_stmt_init($p_conn);
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            exit();
-                        }
-                        mysqli_stmt_bind_param($stmt,"sssss",$ticketID, $eventID, $ticketType, $ticketName, $ticketCost);
-                        mysqli_stmt_execute($stmt);
-                        mysqli_stmt_close($stmt);
-                        if ($sql) {
-                            $resp['status'] = 'success';
+
+                        $eventsTicket_exist = eventsTicketExist($p_conn,$ticketID);
+                            if ($eventsTicket_exist === false) {
+                                $sql = "INSERT INTO events_tickets (ticket_id, event_id, ticket_type, ticket_name, ticket_cost) VALUES ( ?, ?, ?, ?, ?)";
+                            $stmt = mysqli_stmt_init($p_conn);
+                            if (!mysqli_stmt_prepare($stmt, $sql)) {
+                                exit();
+                            }
+                            mysqli_stmt_bind_param($stmt,"sssss",$ticketID, $eventID, $ticketType, $ticketName, $ticketCost);
+                            mysqli_stmt_execute($stmt);
+                            mysqli_stmt_close($stmt);
+                            if ($sql) {
+                                $resp['status'] = 'success';
+                            }
+                            echo json_encode($resp);
                         } else {
                             $resp['status'] = 'success';
                             $resp['msg'] = 'An error occured while saving the data. Error: '.$p_conn->error;
                         }
+                        
+                        
                     }
                 }
 
@@ -179,7 +189,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                        
                         $fmm_exist = fmmExist($p_conn, $userID, $address);
                         if ($fmm_exist === false) {
-                            $sql = "INSERT INTO feastmercyministry (fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                            $sql = "INSERT INTO feastmercyministry_records (fmm_id, user_id, donor_type, donation_start_date, donation_end_date, amount, pay_method) VALUES (?, ?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
@@ -207,7 +217,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                        
                         $hwr_exist = holyweekExist($p_conn, $userID);
                         if ($hwr_exist === false) {
-                            $sql = "INSERT INTO holyweekretreat (hwr_id, user_id, event_date) VALUES (?, ?, ?)";
+                            $sql = "INSERT INTO holyweekretreat_records (hwr_id, user_id, event_date) VALUES (?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
@@ -236,7 +246,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $fileDownloadDate = strtolower($row['2']);
                         $feastph_exist = feastphExist($p_conn, $userID);
                         if ($feastph_exist === false) {
-                            $sql = "INSERT INTO feastph (feastph_id, user_id, file_name, file_download_date) VALUES (?, ?, ?, ?)";
+                            $sql = "INSERT INTO feastph_records (feastph_id, user_id, file_name, file_download_date) VALUES (?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
@@ -268,7 +278,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                        
                         $feastmedia_exist = feastmediaExist($p_conn, $userID);
                         if ($feastmedia_exist === false) {
-                            $sql = "INSERT INTO feastmedia (feast_media_event_id, user_id, event_name, ticket_type, event_type, event_date, ticket_cost) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                            $sql = "INSERT INTO feastmedia_records (feast_media_event_id, user_id, event_name, ticket_type, event_type, event_date, ticket_cost) VALUES (?, ?, ?, ?, ?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
@@ -295,7 +305,7 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                         $downloadDate = $row['1']; //format: yyyy-mm-dd
                         $feastapp_exist = feastappExist($p_conn, $userID, $downloadDate);
                         if ($feastapp_exist === false) {
-                            $sql = "INSERT INTO feastapp (feastapp_id, user_id, date_downloaded) VALUES (?, ?, ?)";
+                            $sql = "INSERT INTO feastapp_records (feastapp_id, user_id, date_downloaded) VALUES (?, ?, ?)";
                             $stmt = mysqli_stmt_init($p_conn);
                             if(!mysqli_stmt_prepare($stmt,$sql)){
                                 exit();
@@ -314,6 +324,93 @@ function importFunction($p_conn, $p_table, $p_filename, $p_idprefix) {
                     }
                  }
             /* END OF FEASTAPP */
+
+            /* FEAST BOOKS */
+            //feastbooks products
+            if ($p_table === "feastbooks_products") {
+                foreach ($sheetData as $row) {
+                    $productID = uniqid($p_idprefix);
+                    $productName = $row['0'];
+                    $cost = $row['1'];
+                    $variation = $row['2'];
+                    $category = $row['3'];
+
+                    $feastbookProduct_exist = feastbookProductsExist($p_conn, $productName);
+                    if ($feastbookProduct_exist === false) {
+                        $sql = "INSERT INTO feastbooks_products (product_id, product_name, cost, variation, category) VALUES ( ?, ?, ?, ?, ?)";
+                        $stmt = mysqli_stmt_init($p_conn);
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            exit();
+                        }
+                        mysqli_stmt_bind_param($stmt,"sssss",$productID, $productName, $cost, $variation, $category);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        if($sql){
+                            $resp['status'] = 'success';
+                        }
+                        echo json_encode($resp);
+                    } else {
+                        $resp['status'] = 'success';
+                    }   
+                }
+            }
+            //feastbooks orders
+            if ($p_table === "feastbooks_orders") {
+                foreach ($sheetData as $row) {
+                    $orderID = uniqid($p_idprefix);
+                    $orderStatus = $row['0'];
+                    $orderCreated = $row['1'];
+                    $orderCompleted = $row['2'];
+                    
+                    $feastbookOrder_exist = feastbookOrdersExist($p_conn, $orderID);
+                    if ($feastbookOrder_exist === false) {
+                        $sql = "INSERT INTO feastbooks_orders (order_id, order_status, order_created, order_completed) VALUES ( ?, ?, ?, ?)";
+                        $stmt = mysqli_stmt_init($p_conn);
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            exit();
+                        }
+                        mysqli_stmt_bind_param($stmt,"ssss",$orderID, $orderStatus, $orderCreated, $orderCompleted);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        if($sql){
+                            $resp['status'] = 'success';
+                        }
+                        echo json_encode($resp);
+                    } else {
+                        $resp['status'] = 'success';
+                    }   
+                }
+            }
+            //feastbooks transactions
+            if ($p_table === "feastbooks_transactions") {
+                foreach ($sheetData as $row) {
+                    $feastbookID = uniqid($p_idprefix);
+                    $orderID = $row['0'];
+                    $productID = $row['1'];
+                    $userID = $row['2'];
+                    $quantity = $row['3'];
+                    
+                    $feastbookTransaction_exist = feastbookTransactionsExist($p_conn, $orderID, $productID, $userID);
+                    if ($feastbookTransaction_exist === false) {
+                        $sql = "INSERT INTO feastbooks_transactions (feastbook_id, order_id, product_id, user_id, quantity) VALUES ( ?, ?, ?, ?, ?)";
+                        $stmt = mysqli_stmt_init($p_conn);
+                        if (!mysqli_stmt_prepare($stmt, $sql)) {
+                            exit();
+                        }
+                        mysqli_stmt_bind_param($stmt,"sssss",$feastbookID, $orderID, $productID, $userID, $quantity);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_close($stmt);
+                        if($sql){
+                            $resp['status'] = 'success';
+                        }
+                        echo json_encode($resp);
+                    } else {
+                        $resp['status'] = 'success';
+                    }   
+                }
+            }
+                 
+            /* END OF FEAST BOOKS */
         }
     }
 }

@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$totalCount = $conn->query("SELECT * FROM `feastapp` ")->num_rows;
+$totalCount = $conn->query("SELECT * FROM `feastapp_records` ")->num_rows;
 $search_where = "";
 if(!empty($search)){
     $search_where = " where ";
@@ -17,11 +17,11 @@ $columns_arr = array(
                      "date_downloaded",
                     );
 // $query2 = $conn->query("SELECT * FROM `feastcon` {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start} ");
-$query = $conn->query("SELECT feastapp_id, users.first_name, users.last_name, date_downloaded FROM feastapp INNER JOIN users ON feastapp.user_id = users.user_id {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
+$query = $conn->query("SELECT feastapp_id, attendees.first_name, attendees.last_name, date_downloaded FROM feastapp_records INNER JOIN attendees ON feastapp_records.user_id = attendees.user_id {$search_where} ORDER BY {$columns_arr[$order[0]['column']]} {$order[0]['dir']} limit {$length} offset {$start}");
 // $query = $conn->query("SELECT feastconID, users.email, country, feastDistrict, ticketType, classAttended
 // FROM (feastcon
 // INNER JOIN users ON feastcon.userID = users.userID)");
-$recordsFilterCount = $conn->query("SELECT feastapp_id, coalesce(users.first_name,'')+' '+ coalesce(users.last_name,''), date_downloaded FROM feastapp INNER JOIN users ON feastapp.user_id = users.user_id {$search_where} ")->num_rows;
+$recordsFilterCount = $conn->query("SELECT feastapp_id, coalesce(attendees.first_name,'')+' '+ coalesce(attendees.last_name,''), date_downloaded FROM feastapp_records INNER JOIN attendees ON feastapp_records.user_id = attendees.user_id {$search_where} ")->num_rows;
 
 $recordsTotal= $totalCount;
 $recordsFiltered= $recordsFilterCount;

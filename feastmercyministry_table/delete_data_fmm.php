@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$delete = $conn->query("DELETE FROM `feastmercyministry` where fmm_id = '{$fmmID}'");
+$delete = $conn->query("DELETE FROM `feastmercyministry_records` where fmm_id = '{$fmmID}'");
 if($delete){
     $resp['status'] = 'success';
 }else{

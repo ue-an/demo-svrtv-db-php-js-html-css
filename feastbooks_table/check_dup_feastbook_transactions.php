@@ -1,11 +1,11 @@
 <?php
-function userExist($mysqli, $email, $lastname, $firstname) {
- $sql = "SELECT * FROM attendees WHERE (email = ? AND last_name = ?) AND first_name = ?";
+function feastbookTransactionsExist($mysqli, $order_id, $product_id, $user_id) {
+ $sql = "SELECT * FROM feastbooks_transactions WHERE (order_id = ? AND product_id = ? AND user_id = ?) ";
  $stmt = mysqli_stmt_init($mysqli);
  if (!mysqli_stmt_prepare($stmt, $sql)) {
   exit();
  }
-  mysqli_stmt_bind_param($stmt,"sss",$email, $lastname, $firstname);
+  mysqli_stmt_bind_param($stmt,"sss",$order_id, $product_id, $user_id);
   mysqli_stmt_execute($stmt);
 
   $resultData = mysqli_stmt_get_result($stmt);

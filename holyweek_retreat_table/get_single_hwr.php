@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$query = $conn->query("SELECT * FROM `holyweekretreat` where hwr_id = '{$hwrID}'");
+$query = $conn->query("SELECT * FROM `holyweekretreat_records` where hwr_id = '{$hwrID}'");
 if($query){
     $resp['status'] = 'success';
     $resp['data'] = $query->fetch_array();

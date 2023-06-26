@@ -3,7 +3,7 @@
 require_once '../connect.php';
 extract($_POST);
  
-$delete = $conn->query("DELETE FROM `events_ticket` where ticket_id = '{$ticketID}'");
+$delete = $conn->query("DELETE FROM `events_tickets` where ticket_id = '{$ticketID}'");
 if($delete){
     $resp['status'] = 'success';
 }else{

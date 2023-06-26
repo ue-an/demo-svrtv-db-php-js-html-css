@@ -1,6 +1,6 @@
 <?php
 function holyweekExist($mysqli, $userID) {
- $sql = "SELECT * FROM holyweekretreat WHERE user_id = ?";
+ $sql = "SELECT * FROM holyweekretreat_records WHERE user_id = ?";
  $stmt = mysqli_stmt_init($mysqli);
  if (!mysqli_stmt_prepare($stmt, $sql)) {
   exit();

@@ -1,6 +1,6 @@
 <?php
 function feastappExist($mysqli, $userID, $downloadDate) {
- $sql = "SELECT * FROM feastapp WHERE (user_id = ? AND date_downloaded = ?)";
+ $sql = "SELECT * FROM feastapp_records WHERE (user_id = ? AND date_downloaded = ?)";
  $stmt = mysqli_stmt_init($mysqli);
  if (!mysqli_stmt_prepare($stmt, $sql)) {
   exit();

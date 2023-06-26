@@ -2,7 +2,7 @@
 // require_once('connect.php');
 require_once '../connect.php';
 extract($_POST);
-$update = $conn->query("UPDATE `feastph` set `file_name` = '{$file_name}', `file_download_date` = '{$file_download_date}' where feastph_id = '{$feastph_id}'");
+$update = $conn->query("UPDATE `feastph_records` set `file_name` = '{$file_name}', `file_download_date` = '{$file_download_date}' where feastph_id = '{$feastph_id}'");
 if($update){
     $resp['status'] = 'success';
 }else{

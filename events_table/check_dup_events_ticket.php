@@ -1,11 +1,11 @@
 <?php
-function userExist($mysqli, $email, $lastname, $firstname) {
- $sql = "SELECT * FROM attendees WHERE (email = ? AND last_name = ?) AND first_name = ?";
+function eventsTicketExist($mysqli, $ticketID) {
+ $sql = "SELECT * FROM events_tickets WHERE ticket_id = ?";
  $stmt = mysqli_stmt_init($mysqli);
  if (!mysqli_stmt_prepare($stmt, $sql)) {
   exit();
  }
-  mysqli_stmt_bind_param($stmt,"sss",$email, $lastname, $firstname);
+  mysqli_stmt_bind_param($stmt,"s",$ticketID);
   mysqli_stmt_execute($stmt);
 
   $resultData = mysqli_stmt_get_result($stmt);

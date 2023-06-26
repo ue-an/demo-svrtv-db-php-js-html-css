@@ -10,6 +10,9 @@
 <script src="js/script_hwr.js"></script>
 <script src="js/script_feastmedia.js"></script>
 <script src="js/script_feastapp.js"></script>
+<script src="js/script_feastbook_products.js"></script>
+<script src="js/script_feastbook_orders.js"></script>
+<script src="js/script_feastbook_transactions.js"></script>
 
 <script src="js/bootstrap.bundle.min.js"></script>
     <script>
@@ -42,6 +45,9 @@
         var hwr_table = document.getElementById("row-hwrtable");
         var feastmedia_table = document.getElementById("row-feastmediatable");
         var feastapp_table = document.getElementById("row-feastapptable");
+        var fbproduct_table = document.getElementById("row-feastbookproductstable");
+        var fborder_table = document.getElementById("row-feastbookorderstable");
+        var fbtransaction_table = document.getElementById("row-feastbooktransactionstable");
 
         let tables = [
             user_table,
@@ -52,6 +58,9 @@
             feastph_table,
             feastmedia_table,
             feastapp_table,
+            fbproduct_table,
+            fborder_table,
+            fbtransaction_table,
             events_table,
         ];
 
@@ -124,11 +133,23 @@
             closeAll(feastapp_table.id);
         }
 
-        function openSideEvents() {
-            events_table.style.visibility = "visible";
-            events_table.style.display = "block";
-            closeAll(events_table.id);
+        function openSideFbProducts() {
+            fbproduct_table.style.visibility = "visible";
+            fbproduct_table.style.display = "block";
+            closeAll(fbproduct_table.id);
         }
+
+        function openSideFbOrders() {
+            fborder_table.style.visibility = "visible";
+            fborder_table.style.display = "block";
+            closeAll(fborder_table.id);
+        }
+
+        // function openSideEvents() {
+        //     events_table.style.visibility = "visible";
+        //     events_table.style.display = "block";
+        //     closeAll(events_table.id);
+        // }
 
         function dropDownBonafied(e) {
             document.getElementById("bonafied").value = e.target.value

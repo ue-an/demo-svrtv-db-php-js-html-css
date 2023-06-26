@@ -33,8 +33,10 @@ include 'header.php';
                        Feast Media</button>
                 <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastapp()">
                        Feast App</button>
-                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFeastbookProducts()">
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFbProducts()">
                        Feastbook Products</button>
+                <button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideFbOrders()">
+                       Feastbook Orders</button>
                 <!--<button class="list-group-item list-group-item-action bg-transparent second-text fw-bold" onclick="openSideEvents()">
                        Events</button> -->
             </div>
@@ -63,6 +65,8 @@ include 'header.php';
                 include 'feastph_table/feastph_index.php';
                 include 'feastmedia_table/feastmedia_index.php';
                 include 'feastapp_table/feastapp_index.php';
+                include 'feastbooks_table/feastbook_products_index.php';
+                include 'feastbooks_table/feastbook_orders_index.php';
                 ?>
             </div>
         </div>
@@ -829,6 +833,8 @@ include 'header.php';
         </div>
     </div>
     <!-- /Delete Modal -->
+
+    <!-- FEAST BOOK MODALS -->
 <?php
 include 'footer.php';
 ?>
