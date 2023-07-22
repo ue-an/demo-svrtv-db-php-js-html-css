@@ -10,6 +10,13 @@
  --second-bg-color: #c1efde; */
 }
 
+body {
+ -ms-user-select: none;
+ user-select: none;
+ -moz-user-select: none;
+ -webkit-user-select: none;
+}
+
 .primary-text {
  color: var(--main-text-color);
 }
