@@ -10,7 +10,7 @@ include 'header.php';
         <!-- Sidebar -->
         <div class="bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
-                    class="fas fa-building me-2"></i>SVRTV DEMO</div>
+                    class="fas fa-building me-2"></i>DEMO</div>
             <div class="list-group list-group-flush my-3">
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active">
                  <i class="fas fa-tachometer-alt me-2"></i>
@@ -26,7 +26,21 @@ include 'header.php';
     -->
     <pre>
     ***Note***
-    This is a prototype of the
+    Confidential files
+    were hidden.
+
+    Data inserted are 
+    samples only.
+
+    If you want to use
+    bulk entry/import 
+    excel functionality:
+    - Make an excel file. 
+    - Copy the structure
+    of the table
+    corresponding to
+    column names.
+    <!-- This is a prototype of the
     database I developed for
     SVRTV. The purpose is to
     demonstrate the
@@ -49,7 +63,7 @@ include 'header.php';
     mock data.
     Do not use information
     presented here in any 
-    means.
+    means. -->
     </pre>    
     <!-- End of 'pre' tag -->
                 </div>
@@ -62,7 +76,7 @@ include 'header.php';
             <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                 <div class="d-flex align-items-center">
                     <i class="fas fa-align-justify primary-text fs-4 me-3" id="menu-toggle"></i>
-                    <h2 class="fs-2 m-0 primary-text">Prototype Feast Database</h2>
+                    <h2 class="fs-2 m-0 primary-text">Prototype Database</h2>
                 </div>                
             </nav>
 
